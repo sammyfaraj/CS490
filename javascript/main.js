@@ -4,13 +4,19 @@ setInterval(function getTime(){
 	document.getElementById('date').innerHTML = timestamp;
 },100);
 
-function loginForm(){
+//This will be replaced by login handling (check database for valid credentials)
+function tempError(){
+	alert("We are temporarily not accepting any logins!")
+}
+
+//This will soon include the addition of valid credentials to database
+function registerForm(){
 	var id = document.getElementById("username").value;
     var psw = document.getElementById("password").value;
 	if (checkPassword(psw) && checkUsername(id) == true) window.location.href = "outer.html";
 	else{
 		alert("Invalid Username or Password:\nPassword must have a number\nUsername andPassword must have no whitespace\nUsername and Password must be greater then six characters");
-		window.location.href = "login.html";
+		window.location.href = "register.html";
 	}
 }
 
