@@ -1,5 +1,7 @@
 Sammy Faraj
-Braulio
-Junior
+
+Eddie Tonaco
+
+Junior Figuereo
 
 CS 490 Project
