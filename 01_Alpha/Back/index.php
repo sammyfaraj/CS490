@@ -31,30 +31,30 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
 	
-	$sql = "SELECT '$username' FROM profile WHERE PASS = '$password'";
-	$result = $conn->query($sql);
+    $sql = "SELECT '$username' FROM profile WHERE PASS = '$password'";
+    $result = $conn->query($sql);
 	
-	if ($result->num_rows > 0) {
-		$message = "0";
-	
-		$json_message = json_encode($message);
-	
-		echo $json_message;
+    if ($result->num_rows > 0) {
+	    
+        $message->credentials = "0";
+        $json_message = json_encode($message);
+	echo $json_message;
+	    
 	}
-	else {
-		$message = "1";
-	
-		$json_message = json_encode($message);
-	
-		echo $json_message;
+    else {
+	    
+	$message->credentials = "1";
+	$json_message = json_encode($message);
+	echo $json_message;
+	    
 	}
 
 } else {
-    $message = "2";
 	
-	$json_message = json_encode($message);
-	
-	echo $json_message;
+    $message->credentials = "2";
+    $json_message = json_encode($message);
+    echo $json_message;
+
 }
 
 $conn->close()
