@@ -16,10 +16,8 @@ $sql="CREATE TABLE IF NOT EXISTS `profile`
     PRIMARY KEY  (`username`)
 	) ENGINE = InnoDB;";
 
-
 if ($conn->query($sql) === TRUE)
     echo "<br>Table profile created successfully";
-
 
 $raw_data = file_get_contents('php://input');
 $request = json_decode($str_json, true);
@@ -38,6 +36,5 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close()
-
 
 ?>
