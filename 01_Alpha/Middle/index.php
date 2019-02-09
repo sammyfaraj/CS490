@@ -13,6 +13,9 @@ $str_json = file_get_contents('php://input');
 # STEP 2: Decode raw HTTP data into json format
 $decoded_data = json_decode($str_json, true);
 
+# TODO: Check username against backend
+# TODO: Check username against NJIT website
+
 # STEP 3: Retrieve values
 $username = $decoded_data["username"];
 $password = $decoded_data["password"];
@@ -21,6 +24,6 @@ $password = $decoded_data["password"];
 $ret_json = "{ 'username': '$username', 'password': '$password' }";
 
 # STEP 5: Return JsonFile
-echo $ret_json;
+echo json_encode($ret_json);
 
 ?>
