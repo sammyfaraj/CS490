@@ -5,4 +5,5 @@
 .DS_Store
 run_php_server.sh
 config.json
+copy_to_afs.sh
 >>>>>>> 4e2d5a5c95594d36dcf3a58f26a8acc5e44b8f3c
