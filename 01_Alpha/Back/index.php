@@ -25,14 +25,36 @@ $request = json_decode($str_json, true);
 if(isset($request['username'])) $username = $request['username'];
 if(isset($request['password'])) $password = $request['password'];
 
-$sql = "SELECT * FROM profile WHERE NAME = '$username' AND PASS = '$password'";
+$sql = "SELECT * FROM profile WHERE NAME = '$username'";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<br>User in Database";
+	
+	$sql = "SELECT '$username' FROM profile WHERE PASS = '$password'";
+	$result = $conn->query($sql);
+	
+	if ($result->num_rows > 0) {
+		$message = "0";
+	
+		$json_message = json_encode($message);
+	
+		echo $json_message;
+	}
+	else {
+		$message = "1";
+	
+		$json_message = json_encode($message);
+	
+		echo $json_message;
+	}
+
 } else {
-    echo "<br>User NOT in Database";
+    $message = "2";
+	
+	$json_message = json_encode($message);
+	
+	echo $json_message;
 }
 
 $conn->close()
