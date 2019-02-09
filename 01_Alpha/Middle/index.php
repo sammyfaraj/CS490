@@ -6,6 +6,7 @@
 
 # Link:
 # https://webauth.njit.edu/idp/profile/cas/login;jsessionid=551CC509EC3B477AEE1D6C022FE98835?execution=e1s1
+$BACKEND_PATH="https//web.njit.edu/~bt74/alpha/back";
 
 # STEP 1: Retrieve raw HTTP request data
 $str_json = file_get_contents('php://input');
