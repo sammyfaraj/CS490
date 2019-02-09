@@ -16,23 +16,44 @@ $sql="CREATE TABLE IF NOT EXISTS `profile`
     PRIMARY KEY  (`username`)
 	) ENGINE = InnoDB;";
 
-if ($conn->query($sql) === TRUE)
-    echo "<br>Table profile created successfully";
+if ($conn->query($sql) === FALSE)
+    echo "<br>Table profile not created successfully";
 
-$raw_data = file_get_contents('php://input');
-$request = json_decode($str_json, true);
+# STEP 1: Retrieve raw HTTP request data
+$str_json = file_get_contents('php://input');
 
-if(isset($request['username'])) $username = $request['username'];
-if(isset($request['password'])) $password = $request['password'];
+# STEP 2: Decode raw HTTP data into json format
+$decoded_data = json_decode($str_json, true);
 
-$sql = "SELECT * FROM profile WHERE NAME = '$username' AND PASS = '$password'";
+# STEP 3: Retrieve values
+$username = $decoded_data["username"];
+$password = $decoded_data["password"];
+
+$sql = "SELECT * FROM profile WHERE NAME = '$username'";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<br>User in Database";
-} else {
-    echo "<br>User NOT in Database";
+	
+    $sqlpass = "SELECT * FROM profile WHERE NAME = '$username' AND PASS = '$password'";
+	  $resultx = $conn->query($sqlpass);
+     
+	//Credentials are valid;
+	if ($resultx->num_rows > 0) {
+    $ret_json->DATABASE = "0";
+		$json_message = json_encode($ret_json);
+		echo $json_message;
+	}
+	else {  //Password is invalid;
+		$ret_json->DATABASE = "1";
+		$json_message = json_encode($ret_json);
+    echo $json_message;
+	}
+
+} else {   //Credentials are invalid;
+    $ret_json->DATABASE = "2";
+	  $json_message = json_encode($ret_json);
+	  echo $json_message;
 }
 
 $conn->close()
