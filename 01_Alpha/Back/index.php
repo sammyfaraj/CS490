@@ -35,7 +35,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
 	
-    $sqlpass = "SELECT '$username' FROM profile WHERE PASS = '$password'";
+    $sqlpass = "SELECT * FROM profile WHERE NAME = '$username' AND PASS = '$password'";
 	  $resultx = $conn->query($sqlpass);
      
 	//Credentials are valid;
