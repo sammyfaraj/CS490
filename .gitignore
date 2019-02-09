@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 .idea/
+=======
+.idea/
+.DS_Store
+run_php_server.sh
+config.json
+>>>>>>> 4e2d5a5c95594d36dcf3a58f26a8acc5e44b8f3c
