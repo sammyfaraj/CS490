@@ -4,9 +4,8 @@
   $data = array('username' => $username,'password' =>$password);
   //$url = "https://web.njit.edu/~jsf25/sample.php";
   //$url = "http://localhost:8080/Back/sample.php";
-  //$url = "https://web.njit.edu/~bt74/index.php";
-  $url = "http://localhost:8080/Middle";
-  echo "<br>Calling curl_init() to URL -> ".$url."<br>";
+  $url = "https://web.njit.edu/~bt74/index.php";
+  //$url = "http://localhost:8080/Middle";
 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
