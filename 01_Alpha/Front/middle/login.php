@@ -1,14 +1,17 @@
 <?php
-$json = json_decode(file_get_contents('php://input'));
-$data= json_encode($json);
-echo json_encode($json);
-$crl = curl_init();
-	curl_setopt($crl, CURLOPT_URL, "https://web.njit.edu/INSERT PROPER URL HERE!");
-	curl_setopt($crl, CURLOPT_POST, 1);
-	curl_setopt($crl, CURLOPT_POSTFIELDS, $data);
-	curl_setopt($crl, CURLOPT_FOLLOWLOCATION, 1);
-	curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1);
-	$c=json_decode(curl_exec($crl));
-	curl_close($crl);
-	echo json_encode($c);
+  $username=$_POST['username'];
+  $password=$_POST['password'];
+  $data = array('username' => $username,'password' =>$password);
+  //$url = "https://web.njit.edu/~jsf25/sample.php";
+  //$url = "http://localhost:8080/Back/sample.php";
+  $url = "https://web.njit.edu/~bt74/index.php";
+  echo "<br>Calling curl_init() to URL -> ".$url."<br>";
+
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+  $response = curl_exec($ch);
+  curl_close ($ch);
+  return $response;
 ?>

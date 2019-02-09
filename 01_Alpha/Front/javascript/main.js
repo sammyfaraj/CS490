@@ -1,37 +1,23 @@
+//Clock
 setInterval(function getTime(){
 	var timestamp = String(Date(Date.now()));
 	timestamp = timestamp.split("GMT")[0]
 	document.getElementById('date').innerHTML = timestamp;
 },100);
 
-function login(){
-	//Setup local data for sending
-	var id = document.getElementById("username").value;
-    var psw = document.getElementById("password").value;
-	var data = {"user":id, "password":psw};
-	var fdata = JSON.stringify(data);
-	//Send the local data to php file
-	var xmlhttp = new XMLHttpRequest();	
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("txtHint").innerHTML = this.responseText
+//Login functionality
+function login(form){
+	var ajax=new XMLHttpRequest();
+  ajax.onreadystatechange = function(){
+    document.getElementById("demo").innerHTML = "loading...";
+		if(ajax.readyState == 4 && ajax.status == 200){	
+			document.getElementById("demo").innerHTML = this.responseText;
+			return;
 		}
-    };
-	xmlhttp.open('POST','../middle/login.php');
-	xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xmlhttp.send(fdata);
-	//Receive Response 
-	if (xmlhttp.readyState === XMLHttpRequest.Done){
-		if(xmlhttp.status === 200){
-			var response = JSON.parse(xmlhttp.responseText);
-			//Chance temp variables once return variables are explecitly defined 
-			document.getElementById("NJIT").innerHTML=response.TEMPNJIT;
-			document.getElementById("DATABASE").innerHTML=response.TEMPDATABASE;
-		} 	
-		else {
-			alert('There was a problem with the request.');
-		}		
 	}
+	  ajax.open("POST", "../middle/login.php", true);
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  ajax.send("username="+form.username.value+"&password="+form.password.value);
 }
 
 
@@ -46,12 +32,14 @@ function registerForm(){
 	}
 }
 
+//Check if username is in proper format
 function checkUsername(username){
 	if (username.len < 6) return false;
 	else if (/\s/g.test(username)) return false;
 	else return true;
 }
 
+//Check if password is in proper format
 function checkPassword(password){
 	if (password.len < 6) return false;
 	else if (!/\d/.test(password)) return false;
