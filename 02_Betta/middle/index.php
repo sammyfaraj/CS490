@@ -26,28 +26,58 @@ switch ($data["request_id"]) {
         else
             echo(json_encode($response));
         break;
-    case "T_CREATE":
+    case "T_CREATE_QUESTION":
         $response = get_all_questions($data);
         if ($DEBUG)
-            debug_print($data, $response, "T_CREATE");
+            debug_print($data, $response, "T_CREATE_QUESTION");
         else
             echo(json_encode($response));
         break;
-    case "T_ADD":
-        // TODO: Send added question to backend and return updated questions list from backend
+    case "T_ADD_QUESTION":
+        // TODO: Send added question(s) to backend
+        // TODO: Return OK/Error
         echo("Add questions block");
+        break;
+    case "T_CREATE_EXAM":
+        // TODO: Send to backend newly created exam
+        // TODO: Return response OK/Error
+        echo("Create Exam block");
+        break;
+    case "T_RELEASE_EXAM":
+        // TODO: Request from backend exam(s) + list of of students
+        // TODO: Return response OK/Error
+        echo("Release Exam block");
+        break;
+    case "T_END_EXAM":
+        // TODO: Update exams IN_PROGRESS as CLOSED
+        // TODO: Calculate Grades + update scores in db + mark exam as "TO REVIEW GRADES"
+        // TODO: Return response OK/Error
+        echo("End Exam block");
+        break;
+    case "T_REVIEW_GRADES":
+        // TODO: Request from backend list of "TO REVIEW GRADES" exams  + Student Name associated w/ it
+        // TODO: Send response to Front-End
+        echo("Review grades block");
+        break;
+    case "T_SUBMIT_GRADES":
+        // TODO: Send to Backend reviewed exams
+        // TODO: Return response OK/Error
+        echo("Submit grades block");
         break;
     case "S_MAIN":
-        // TODO: Request all available test questions from backend and return response in json format to front-end
-        echo("Retrieve Questions block");
+        // TODO: Request from back if student has available test
+        // TODO: Send response back to frontend
+        echo("Student main block");
         break;
     case "S_TEST":
-        // TODO: Request all available test questions from backend and return response in json format to front-end
-        echo("Retrieve Questions block");
+        // TODO: Request from backend exam assigned to student
+        // TODO: Send response back to frontend
+        echo("Exam request block");
         break;
     case "S_GRADES":
-        // TODO: Send added question to backend and return updated questions list from backend
-        echo("Add questions block");
+        // TODO: Request exam grade from backend, if test is stil in "TO REVIEW GRADES" status, return
+        //  "Grading in progress" or coding (YET TO DECIDE)
+        echo("Student Grade Request block");
         break;
     default:
         // TODO: Invalid request
@@ -93,7 +123,7 @@ function debug_print($input, $output, $case)
 {
     switch ($case) {
         case "LOGIN":
-            echo("<br>Retrieve Questions block");
+            echo("<br>Authenticate block");
             break;
         case "T_CREATE":
             echo("<br>Retrieve Questions block");
