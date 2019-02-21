@@ -2,6 +2,7 @@
   "questions": [
     {
       "intro": "Write a function named vowelCount that counts and returns the number of vowels in a string parameter. The letters 'a', 'e', 'i', 'o' and 'u' are the vowels.",
+      "id": 1,
       "func_names": [
         {
           "id": 1,
@@ -41,6 +42,7 @@
     },
     {
       "intro": "Write a function named getInitials. The function getInitials should first ask the user for the user's first name, then ask the user for the user's last name. getInitials should then address the user by name, printing out the text parameter followed by the user's name. getInitials should return the user's initials. You may assume that the user provides a non-empty string for both the first and the last name.",
+      "id": 2,
       "func_names": [
         {
           "id": 1,
