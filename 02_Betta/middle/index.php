@@ -5,14 +5,14 @@
  *  Class    CS490
  */
 
-$DEBUG = 0;
+$DEBUG = 1;
 
 if ($DEBUG) {
     echo("<b>############ Debugging ############</b><br>");
     $data = array(
-        "request_id" => $_POST["request_id"],
-        "username" => $_POST["username"],
-        "password" => $_POST["password"]
+        "request_id" => "LOGIN",
+        "username" => "teacher1",
+        "password" => "password"
     );
 } else
     $data = json_decode(file_get_contents("php://input"), true);
@@ -25,7 +25,7 @@ switch ($data["request_id"]) {
         else
             echo(json_encode($response));
         break;
-    case "GET_ALL":
+    case "ADD_QUESTION":
         $response = get_all_questions($data);
         if ($DEBUG)
             debug_print($data, $response, "T_CREATE_QUESTION");
@@ -86,7 +86,7 @@ switch ($data["request_id"]) {
 
 function authenticate_credentials($data)
 {
-    $url = "https://web.njit.edu/~jsf25/";
+    $url = "https://web.njit.edu/~jsf25/login.php";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
