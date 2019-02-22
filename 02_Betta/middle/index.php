@@ -10,13 +10,12 @@ $DEBUG = 0;
 if ($DEBUG) {
     echo("<b>############ Debugging ############</b><br>");
     $data = array(
-        "request_id" => "LOGIN",
-        "username" => "user",
-        "password" => "pass"
+        "request_id" => $_POST["request_id"],
+        "username" => $_POST["username"],
+        "password" => $_POST["password"]
     );
 } else
     $data = json_decode(file_get_contents("php://input"), true);
-
 
 switch ($data["request_id"]) {
     case "LOGIN":
@@ -26,7 +25,7 @@ switch ($data["request_id"]) {
         else
             echo(json_encode($response));
         break;
-    case "T_CREATE_QUESTION":
+    case "GET_ALL":
         $response = get_all_questions($data);
         if ($DEBUG)
             debug_print($data, $response, "T_CREATE_QUESTION");
@@ -134,3 +133,4 @@ function debug_print($input, $output, $case)
     echo("<br><br>OUTPUT: ");
     var_dump($output);
 }
+
