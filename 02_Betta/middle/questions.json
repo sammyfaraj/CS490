@@ -12,8 +12,8 @@
       "param_intro": "The function vowelCount takes one parameter:",
       "params": [
         {
-          "var": "text",
-          "type": "a string",
+          "var_name": "text",
+          "type": "string",
           "description": "null"
         }
       ],
@@ -52,7 +52,7 @@
       "param_intro": "The function getInitials takes one parameter:",
       "params": [
         {
-          "var": "remark",
+          "var_name": "remark",
           "type": "string",
           "description": "null"
         }
