@@ -1,8 +1,9 @@
 <?php
 
-function authenticate_credentials($data)
+function send_to_backend($data)
+    /** Sends input data from front-end to backend **/
 {
-    $url = "https://web.njit.edu/~jsf25/login.php";
+    $url = "https://web.njit.edu/~jsf25/";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
