@@ -12,7 +12,7 @@ require_once("helper_functions.php");
 $data = json_decode(file_get_contents("php://input"), true);
 
 # Check if request is coming from Front-end and data was successfully retrieved
-if ( is_null($data) )
+if (is_null($data))
     run_test_cases();
 else
     router($data);
@@ -71,8 +71,8 @@ function router($input_data)
 
 function run_test_cases()
 {
-    echo ("<h1>Running Test Cases</h1>");
-    echo ("<h3 style='color: #ce0806'>sending data to backend URL: https://web.njit.edu/~jsf25/</h3>");
+    echo("<h1>Running Test Cases</h1>");
+    echo("<h3 style='color: #ce0806'>sending data to backend URL: https://web.njit.edu/~jsf25/</h3>");
 
     foreach ($GLOBALS['test_cases'] as $k => $v) {
         if ($k == "LOGIN") {
