@@ -1,0 +1,67 @@
+html {
+	background: url('../images/homepage.png') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+}
+
+h1 {
+	display: inline;
+	color: black;
+	width: 100%;
+	font-weight: bold;
+	text-align: middle;
+}
+
+body {
+	min-height: calc(100vh - 70px);
+	text-align: center;
+	font-size: 150%;
+}
+
+
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #ce0806;
+	font-size: 45%;
+	color: black;
+	font-weight: bold;
+	text-align: middle;
+}
+
+input[type=button] {
+	background-color: #ce0806;
+	border: none;
+	color: white;
+	width: 20%;
+	padding: 12px 20px;
+	text-align: middle;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+input[type=text] {
+	background-color: #feffe5;
+	width: 20%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+input[type=password] {
+	background-color: #feffe5;
+	width: 20%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+.space {
+	margin-top: 150px; 
+}

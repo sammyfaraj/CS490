@@ -1,0 +1,42 @@
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+}
+
+.left {
+  left: 0;
+  background-color: #ce0806;
+}
+
+.right {
+  right: 0;
+  background-color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+input[type=text] {
+	background-color: #feffe5;
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+input[type=text2] {
+	background-color: #feffe5;
+	width: 25%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
