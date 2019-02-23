@@ -11,19 +11,19 @@ $test_cases = array(
             "request_id" => "LOGIN",
             "username" => "teacher1",
             "password" => "password",
-            "description" => "Testing for <b>TEACHER</b> password"
+            "description" => "Testing for TEACHER password"
         ),
         array(
             "request_id" => "LOGIN",
             "username" => "student1",
             "password" => "password",
-            "description" => "Testing for <b>STUDENT</b> password"
+            "description" => "Testing for STUDENT password"
         ),
         array(
             "request_id" => "LOGIN",
             "username" => "teacher1",
             "password" => "BAD_PASSWORD",
-            "description" => "Testing for <b>INCORRECT</b> password"
+            "description" => "Testing for INCORRECT password"
         )
     ),
     "ADD_QUESTION" => array(
