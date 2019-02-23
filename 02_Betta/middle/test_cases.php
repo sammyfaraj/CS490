@@ -5,8 +5,7 @@
  *  Class    CS490
  */
 
-// LOGIN test-case
-array(
+$test_cases = array(
     "LOGIN" => array(
         "request_id" => "LOGIN",
         "username" => "teacher1",
