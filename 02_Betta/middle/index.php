@@ -5,132 +5,91 @@
  *  Class    CS490
  */
 
-$DEBUG = 1;
+include "test_cases.php";
+require_once("helper_functions.php");
 
-if ($DEBUG) {
-    echo("<b>############ Debugging ############</b><br>");
-    $data = array(
-        "request_id" => "LOGIN",
-        "username" => "teacher1",
-        "password" => "password"
-    );
-} else
-    $data = json_decode(file_get_contents("php://input"), true);
+# Retrieves http request from front-end
+$data = json_decode(file_get_contents("php://input"), true);
 
-switch ($data["request_id"]) {
-    case "LOGIN":
-        $response = array("role" => authenticate_credentials($data));
-        if ($DEBUG)
-            debug_print($data, $response, "LOGIN");
-        else
-            echo(json_encode($response));
-        break;
-    case "ADD_QUESTION":
-        $response = get_all_questions($data);
-        if ($DEBUG)
-            debug_print($data, $response, "T_CREATE_QUESTION");
-        else
-            echo(json_encode($response));
-        break;
-    case "T_ADD_QUESTION":
-        // TODO: Send added question(s) to backend
-        // TODO: Return OK/Error
-        echo("Add questions block");
-        break;
-    case "T_CREATE_EXAM":
-        // TODO: Send to backend newly created exam
-        // TODO: Return response OK/Error
-        echo("Create Exam block");
-        break;
-    case "T_RELEASE_EXAM":
-        // TODO: Request from backend exam(s) + list of of students
-        // TODO: Return response OK/Error
-        echo("Release Exam block");
-        break;
-    case "T_END_EXAM":
-        // TODO: Update exams IN_PROGRESS as CLOSED
-        // TODO: Calculate Grades + update scores in db + mark exam as "TO REVIEW GRADES"
-        // TODO: Return response OK/Error
-        echo("End Exam block");
-        break;
-    case "T_REVIEW_GRADES":
-        // TODO: Request from backend list of "TO REVIEW GRADES" exams  + Student Name associated w/ it
-        // TODO: Send response to Front-End
-        echo("Review grades block");
-        break;
-    case "T_SUBMIT_GRADES":
-        // TODO: Send to Backend reviewed exams
-        // TODO: Return response OK/Error
-        echo("Submit grades block");
-        break;
-    case "S_MAIN":
-        // TODO: Request from back if student has available test
-        // TODO: Send response back to frontend
-        echo("Student main block");
-        break;
-    case "S_TEST":
-        // TODO: Request from backend exam assigned to student
-        // TODO: Send response back to frontend
-        echo("Exam request block");
-        break;
-    case "S_GRADES":
-        // TODO: Request exam grade from backend, if test is stil in "TO REVIEW GRADES" status, return
-        //  "Grading in progress" or coding (YET TO DECIDE)
-        echo("Student Grade Request block");
-        break;
-    default:
-        // TODO: Invalid request
-        echo("Invalid request block");
-}
+# Check if request is coming from Front-end and data was successfully retrieved
+if ( is_null($data) )
+    run_test_cases();
+else
+    router($data);
 
-
-function authenticate_credentials($data)
+function router($input_data)
 {
-    $url = "https://web.njit.edu/~jsf25/login.php";
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    $response = json_decode(curl_exec($ch), true);
-    curl_close($ch);
-
-    if ($GLOBALS['DEBUG'])
-        return 1;
-    else
-        return $response['role'];
-}
-
-function get_all_questions($data)
-{
-    $url = "https://web.njit.edu/~jsf25/";
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    $response = json_decode(curl_exec($ch), true);
-    curl_close($ch);
-
-    if ($GLOBALS['DEBUG'])
-        return json_decode(file_get_contents("questions.json"), true);
-    else
-        return $response;
-}
-
-function debug_print($input, $output, $case)
-{
-    switch ($case) {
+    switch ($input_data["request_id"]) {
         case "LOGIN":
-            echo("<br>Authenticate block");
+        case "ADD_QUESTION":
+        case "FILTER":
+        case "CREATE_EXAM":
+            $response = send_to_backend($input_data);
+            echo json_encode($response);
             break;
-        case "T_CREATE":
-            echo("<br>Retrieve Questions block");
+        case "T_RELEASE_EXAM":
+            // TODO: Request from backend exam(s) + list of of students
+            // TODO: Return response OK/Error
+            echo("Release Exam block");
             break;
+        case "T_END_EXAM":
+            // TODO: Update exams IN_PROGRESS as CLOSED
+            // TODO: Calculate Grades + update scores in db + mark exam as "TO REVIEW GRADES"
+            // TODO: Return response OK/Error
+            echo("End Exam block");
+            break;
+        case "T_REVIEW_GRADES":
+            // TODO: Request from backend list of "TO REVIEW GRADES" exams  + Student Name associated w/ it
+            // TODO: Send response to Front-End
+            echo("Review grades block");
+            break;
+        case "T_SUBMIT_GRADES":
+            // TODO: Send to Backend reviewed exams
+            // TODO: Return response OK/Error
+            echo("Submit grades block");
+            break;
+        case "S_MAIN":
+            // TODO: Request from back if student has available test
+            // TODO: Send response back to frontend
+            echo("Student main block");
+            break;
+        case "S_TEST":
+            // TODO: Request from backend exam assigned to student
+            // TODO: Send response back to frontend
+            echo("Exam request block");
+            break;
+        case "S_GRADES":
+            // TODO: Request exam grade from backend, if test is stil in "TO REVIEW GRADES" status, return
+            //  "Grading in progress" or coding (YET TO DECIDE)
+            echo("Student Grade Request block");
+            break;
+        default:
+            // TODO: Invalid request
+            echo("Invalid request block");
     }
-    echo("<br><br>INPUT: ");
-    var_dump($input);
-    echo("<br><br>OUTPUT: ");
-    var_dump($output);
 }
 
+function run_test_cases()
+{
+    echo ("<h1>Running Test Cases</h1>");
+    echo ("<h3 style='color: #ce0806'>sending data to backend URL: https://web.njit.edu/~jsf25/</h3>");
+
+    foreach ($GLOBALS['test_cases'] as $k => $v) {
+        if ($k == "LOGIN") {
+            foreach ($v as $value) {
+                echo("<br><br>FRONT-END input for request_id: <b style='color: #ff6e39'>$k</b><br>");
+                var_dump($value);
+                echo("<br><br>BACKEND response:<br>");
+                router($value);
+                echo "<hr>";
+            }
+        } else {
+            echo("<br><br>FRONT-END input for request_id: <b style='color: #ff6e39'>$k</b><br>");
+            var_dump($v);
+
+            echo("<br><br>BACKEND response:<br>");
+            router($v);
+            echo "<hr>";
+        }
+    }
+}
