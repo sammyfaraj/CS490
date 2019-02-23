@@ -48,5 +48,24 @@ $test_cases = array(
                 )
             )
         )
+    ),
+    "FILTER" => array(
+        "request_id" => "FILTER",
+        "topic" => array("string", "list", "dict", "all"),
+        "diff" => array("hard", "intermediate", "easy", "all"),
+        "keyword" => array("keyword may vary")
+    ),
+    "CREATE_EXAM" => array(
+        "request_id" => "CREATE_EXAM",
+        "questions" => array(
+            array("q1_ID", "score1"),
+            array("q2_ID", "score2"),
+            array("q3_ID", "score3"),
+            array("q4_ID", "score4"),
+            array("q4_ID", "score5")
+        ),
+        "semester" => "fall",
+        "year" => "2019",
+        "class" => "CS490"
     )
 );
