@@ -29,38 +29,31 @@ $test_cases = array(
     "ADD_QUESTION" => array(
         "request_id" => "ADD_QUESTION",
         "question" => array(
-            "intro" => "Write a function named vowelCount that counts and returns the number of vowels in a string parameter. The letters 'a', 'e', 'i', 'o' and 'u' are the vowels.",
-            "id" => 1,
+            "intro" => "Write a function named vowelCount that counts and returns the number of vowels in a string parameter. The letters 'a', 'e', 'i', 'o' and 'u' are the vowels. both upper and lower case instances of vowels should be counted. The function vowelCount takes one parameter:",
             "topic" => "string",
             "diff" => "easy",
-            "func_names" => array(
-                "id" => 1,
-                "name" => "vowelCount"
-            ),
-            "param_intro" => "The function vowelCount takes one parameter:",
+            "score" => 15,
+            "func_name" => "vowelCount",
 
             "params" => array(
-                "var_name" => "text",
-                "type" => "string",
-                "description" => "null"
+                array(
+                    "var_name" => "text",
+                    "type" => "string",
+                    "description" => "null"
+                )
             ),
-            "close" => "null",
-            "hint" => "both upper and lower case instances of vowels should be counted.",
-            "example_intro" => "For example, the following would be correct output:",
 
             "example" => array(
+                "example_str" => "For example, the following would be correct output:",
                 "line1" => ">>> beatleLine = 'I am the walrus'",
                 "line2" => ">>> print(vowelCount(beatleLine))",
                 "line3" => ">>> 5"
             ),
 
             "test cases" => array(
-                "func_id" => 1,
-                "unit_test" => array(
-                    array("I am the walrus", 5),
-                    array("aeiou", 5),
-                    array("I love you", 5)
-                )
+                array("I am the walrus", 5),
+                array("aeiou", 5),
+                array("I love you", 5)
             )
         )
     ),
@@ -82,5 +75,8 @@ $test_cases = array(
         "semester" => "fall",
         "year" => "2019",
         "class" => "CS490"
+    ),
+    "GET_ALL" => array(
+        "request_id" => "GET_ALL"
     )
 );
