@@ -9,23 +9,57 @@ include "test_cases.php";
 require_once("helper_functions.php");
 
 # Retrieves http request from front-end
-$data = json_decode(file_get_contents("php://input"), true);
+$raw_data = file_get_contents("php://input");
+
+# Decode raw data
+$data = json_decode($raw_data, true);
 
 # Check if request is coming from Front-end and data was successfully retrieved
 if (is_null($data))
     run_test_cases();
-else
+else {
     router($data);
+}
+
 
 function router($input_data)
 {
     switch ($input_data["request_id"]) {
         case "LOGIN":
+            $ret_to_frontend = array(
+                "role" => 2,
+                "front-end_input" => $input_data
+            );
+            echo json_encode($ret_to_frontend);
+            break;
         case "ADD_QUESTION":
+            $ret_to_frontend = array(
+                "response" => "questions added [ question id ] successfully",
+                "front-end_input" => $input_data
+            );
+            echo json_encode($ret_to_frontend);
+            break;
         case "FILTER":
+            $test_data = $GLOBALS['test_cases'];
+            $question = $test_data['ADD_QUESTION'];
+            $question['front-end_input'] = $input_data;
+
+            echo json_encode($question['question']);
+            break;
+        case "GET_ALL":
+            # TODO:Return all questions from DB (yet to code in backend)
+            $test_data = $GLOBALS['test_cases'];
+            $question = $test_data['ADD_QUESTION'];
+            $question['front-end_input'] = $input_data;
+
+            echo json_encode($question);
+            break;
         case "CREATE_EXAM":
-            $response = send_to_backend($input_data);
-            echo json_encode($response);
+            $ret_to_frontend = array(
+                "response" => "exam [ exam id ] created successfully",
+                "front-end_input" => $input_data
+            );
+            echo json_encode($ret_to_frontend);
             break;
         case "T_RELEASE_EXAM":
             // TODO: Request from backend exam(s) + list of of students
