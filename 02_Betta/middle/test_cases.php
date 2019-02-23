@@ -7,9 +7,21 @@
 
 $test_cases = array(
     "LOGIN" => array(
-        "request_id" => "LOGIN",
-        "username" => "teacher1",
-        "password" => "password"
+        array(
+            "request_id" => "LOGIN",
+            "username" => "teacher1",
+            "password" => "password"
+        ),
+        array(
+            "request_id" => "LOGIN",
+            "username" => "student1",
+            "password" => "password"
+        ),
+        array(
+            "request_id" => "LOGIN",
+            "username" => "teacher1",
+            "password" => "BAD_PASSWORD"
+        )
     ),
     "ADD_QUESTION" => array(
         "request_id" => "ADD_QUESTION",
