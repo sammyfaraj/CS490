@@ -27,22 +27,23 @@ function router($input_data)
     $ret_to_frontend = null;
     switch ($input_data["request_id"]) {
         case "LOGIN":
-            $ret_to_frontend = array( "role" => 2 );
-            break;
+            #$ret_to_frontend = array( "role" => 2 );
+            #break;
         case "ADD_QUESTION":
-            $ret_to_frontend = array("response" => "questions added [ question id ] successfully");
-            break;
+            #$ret_to_frontend = array("response" => "questions added [ question id ] successfully");
+            #break;
         case "FILTER":
-            $test_data = $GLOBALS['test_cases'];
-            $ret_to_frontend = $test_data['ADD_QUESTION'];
-            break;
+            #$test_data = $GLOBALS['test_cases'];
+            #$ret_to_frontend = $test_data['ADD_QUESTION'];
+            #break;
         case "GET_ALL":
             # TODO:Return all questions from DB (yet to code in backend)
-            $test_data = $GLOBALS['test_cases'];
-            $ret_to_frontend = $test_data['ADD_QUESTION'];
-            break;
+            #$test_data = $GLOBALS['test_cases'];
+            #$ret_to_frontend = $test_data['ADD_QUESTION'];
+            #break;
         case "CREATE_EXAM":
-            $ret_to_frontend = array("response" => "exam [ exam id ] created successfully");
+            #$ret_to_frontend = array("response" => "exam [ exam id ] created successfully");
+            $ret_to_frontend = send_to_backend($input_data);
             break;
         case "T_RELEASE_EXAM":
             // TODO: Request from backend exam(s) + list of of students
@@ -85,7 +86,7 @@ function router($input_data)
             echo("Invalid request block");
     }
 
-    $ret_to_frontend['front-end_input'] = $input_data;
+    #$ret_to_frontend['front-end_input'] = $input_data;
     echo json_encode($ret_to_frontend);
 }
 
