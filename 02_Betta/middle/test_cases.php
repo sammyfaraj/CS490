@@ -43,13 +43,6 @@ $test_cases = array(
                 )
             ),
 
-            "example" => array(
-                "example_str" => "For example, the following would be correct output:",
-                "line1" => ">>> beatleLine = 'I am the walrus'",
-                "line2" => ">>> print(vowelCount(beatleLine))",
-                "line3" => ">>> 5"
-            ),
-
             "test cases" => array(
                 array("I am the walrus", 5),
                 array("aeiou", 5),
