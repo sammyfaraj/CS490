@@ -11,10 +11,10 @@ $str_json = file_get_contents('php://input');
 $decoded_data = json_decode($str_json, true);
 
 if (is_null($decoded_data)){
-  var_dump($decoded_data);
 	echo "Data is NULL";
 }
 else{
+	var_dump($decoded_data);
 	route($decoded_data);
 }
 
