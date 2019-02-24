@@ -12,5 +12,7 @@ function send_to_backend($data)
     $response = curl_exec($ch);
     curl_close($ch);
 
-    return $response;
+    $decoded = json_decode($response, true);
+
+    return $decoded;
 }
