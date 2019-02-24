@@ -18,12 +18,20 @@ $data = json_decode($raw_data, true);
 if (is_null($data))
     run_test_cases();
 else {
-    router($data);
+
+    $back_response = router($data);
+
+    $encoded = json_encode($data);
+    echo "FRONT-END INPUT => *** $encoded ***";
+    $encoded = json_encode($back_response);
+    echo "BACKEND OUTPUT => *** $encoded ***";
+
 }
 
 
 function router($input_data)
 {
+
     $ret_to_frontend = null;
     switch ($input_data["request_id"]) {
         case "LOGIN":
@@ -87,7 +95,7 @@ function router($input_data)
     }
 
     #$ret_to_frontend['front-end_input'] = $input_data;
-    echo json_encode($ret_to_frontend);
+    return $ret_to_frontend;
 }
 
 function run_test_cases()
@@ -101,7 +109,9 @@ function run_test_cases()
                 echo("<br><br>FRONT-END input for request_id: <b style='color: #ff6e39'>$k</b><br>");
                 var_dump($value);
                 echo("<br><br>BACKEND response:<br>");
-                router($value);
+                $back_response = router($value);
+                $encoded = json_encode($back_response);
+                echo "==>>> $encoded <<<==";
                 echo "<hr>";
             }
         } else {
@@ -109,7 +119,9 @@ function run_test_cases()
             var_dump($v);
 
             echo("<br><br>BACKEND response:<br>");
-            router($v);
+            $back_response = router($v);
+            $encoded = json_encode($back_response);
+            echo "==>>> $encoded <<<==";
             echo "<hr>";
         }
     }
