@@ -24,42 +24,25 @@ else {
 
 function router($input_data)
 {
+    $ret_to_frontend = null;
     switch ($input_data["request_id"]) {
         case "LOGIN":
-            $ret_to_frontend = array(
-                "role" => 2,
-                "front-end_input" => $input_data
-            );
-            echo json_encode($ret_to_frontend);
+            $ret_to_frontend = array( "role" => 2 );
             break;
         case "ADD_QUESTION":
-            $ret_to_frontend = array(
-                "response" => "questions added [ question id ] successfully",
-                "front-end_input" => $input_data
-            );
-            echo json_encode($ret_to_frontend);
+            $ret_to_frontend = array("response" => "questions added [ question id ] successfully");
             break;
         case "FILTER":
             $test_data = $GLOBALS['test_cases'];
-            $question = $test_data['ADD_QUESTION'];
-            $question['front-end_input'] = $input_data;
-
-            echo json_encode($question['question']);
+            $ret_to_frontend = $test_data['ADD_QUESTION'];
             break;
         case "GET_ALL":
             # TODO:Return all questions from DB (yet to code in backend)
             $test_data = $GLOBALS['test_cases'];
-            $question = $test_data['ADD_QUESTION'];
-            $question['front-end_input'] = $input_data;
-
-            echo json_encode($question);
+            $ret_to_frontend = $test_data['ADD_QUESTION'];
             break;
         case "CREATE_EXAM":
-            $ret_to_frontend = array(
-                "response" => "exam [ exam id ] created successfully",
-                "front-end_input" => $input_data
-            );
-            echo json_encode($ret_to_frontend);
+            $ret_to_frontend = array("response" => "exam [ exam id ] created successfully");
             break;
         case "T_RELEASE_EXAM":
             // TODO: Request from backend exam(s) + list of of students
@@ -101,6 +84,9 @@ function router($input_data)
             // TODO: Invalid request
             echo("Invalid request block");
     }
+
+    $ret_to_frontend['front-end_input'] = $input_data;
+    echo json_encode($ret_to_frontend);
 }
 
 function run_test_cases()
