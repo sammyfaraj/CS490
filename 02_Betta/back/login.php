@@ -16,14 +16,16 @@
 
 /*********************** 1 **********************/
 
-require_once("db.php");
-/*
+include"db.php";
+
 $db = new DB();
 $conn = $db->get_connection();
 
 if ($conn->connect_error)
     die("<br>Connection failed: " . $conn->connect_error);
-*/
+else
+  echo "Connected.";
+
 
 #Retrieve raw HTTP request data
 //$str_json = file_get_contents('php://input');
@@ -36,7 +38,7 @@ $username = $data["username"];
 $password = $data["password"];
 
 /*********************** 2 **********************/
-$sql="CREATE TABLE IF NOT EXISTS `profile`
+$sql="CREATE TABLE IF NOT EXISTS `profiles`
 	(
     `username` varchar(255) NOT NULL default '',
     `password` varchar(255) NOT NULL default '',
@@ -49,21 +51,34 @@ if ($conn->query($sql) === FALSE)
 
 
 //password checking
-$sql = "SELECT role FROM profiles WHERE username = '$username' AND password = '$password'";
+$sql = "SELECT * FROM profiles WHERE username = '$username' AND password = '$password'";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) 
 {
-	$ret_json->role = $result;
-	$json_message = json_encode($ret_json);
-	echo $json_message;
+
+  $sql = "SELECT * FROM profiles WHERE username = '$username' AND role = '2'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) 
+  {
+    $ret_json->role = '2';
+	  $json_message = json_encode($ret_json);
+	  echo $json_message;
+  }
+  else
+  {
+    $ret_json->role = '1';
+	  $json_message = json_encode($ret_json);
+	  echo $json_message;
+  }
+
 } 
 else 
 {   //Credentials are invalid;
     $ret_json->role = "0";
-	$json_message = json_encode($ret_json);
-	echo $json_message;
+	  $json_message = json_encode($ret_json);
+	  echo $json_message;
 }
 
 //$conn->close()

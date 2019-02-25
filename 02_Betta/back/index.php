@@ -10,10 +10,12 @@ $str_json = file_get_contents('php://input');
 #Decode raw HTTP data into json format
 $decoded_data = json_decode($str_json, true);
 
-if (is_null($decoded_data))
-    echo "Data is NULL";
-else {
-    route($decoded_data);
+if (is_null($decoded_data)){
+	echo "Data is NULL";
+}
+else{
+	var_dump($decoded_data);
+	route($decoded_data);
 }
 
 function route($data)
