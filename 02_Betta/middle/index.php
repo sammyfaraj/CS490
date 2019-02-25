@@ -18,16 +18,9 @@ $data = json_decode($raw_data, true);
 if (is_null($data))
     run_test_cases();
 else {
-
     $back_response = router($data);
-
-    $encoded = json_encode($data);
-    echo "FRONT-END INPUT => *** $encoded ***";
-    $encoded = json_encode($back_response);
-    echo "BACKEND OUTPUT => *** $encoded ***";
-
+    echo $back_response;
 }
-
 
 function router($input_data)
 {
@@ -35,22 +28,10 @@ function router($input_data)
     $ret_to_frontend = null;
     switch ($input_data["request_id"]) {
         case "LOGIN":
-            #$ret_to_frontend = array( "role" => 2 );
-            #break;
         case "ADD_QUESTION":
-            #$ret_to_frontend = array("response" => "questions added [ question id ] successfully");
-            #break;
         case "FILTER":
-            #$test_data = $GLOBALS['test_cases'];
-            #$ret_to_frontend = $test_data['ADD_QUESTION'];
-            #break;
         case "GET_ALL":
-            # TODO:Return all questions from DB (yet to code in backend)
-            #$test_data = $GLOBALS['test_cases'];
-            #$ret_to_frontend = $test_data['ADD_QUESTION'];
-            #break;
         case "CREATE_EXAM":
-            #$ret_to_frontend = array("response" => "exam [ exam id ] created successfully");
             $ret_to_frontend = send_to_backend($input_data);
             break;
         case "T_RELEASE_EXAM":
@@ -94,7 +75,6 @@ function router($input_data)
             echo("Invalid request block");
     }
 
-    #$ret_to_frontend['front-end_input'] = $input_data;
     return $ret_to_frontend;
 }
 
@@ -110,8 +90,7 @@ function run_test_cases()
                 var_dump($value);
                 echo("<br><br>BACKEND response:<br>");
                 $back_response = router($value);
-                $encoded = json_encode($back_response);
-                echo "==>>> $encoded <<<==";
+                echo "==>>> $back_response <<<==";
                 echo "<hr>";
             }
         } else {
@@ -120,8 +99,7 @@ function run_test_cases()
 
             echo("<br><br>BACKEND response:<br>");
             $back_response = router($v);
-            $encoded = json_encode($back_response);
-            echo "==>>> $encoded <<<==";
+            echo "==>>> $back_response <<<==";
             echo "<hr>";
         }
     }
