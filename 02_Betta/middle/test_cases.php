@@ -119,48 +119,18 @@ $completed = array(
     ),
     "ADD_QUESTION" => array(
         "request_id" => "ADD_QUESTION",
-        "question" => array(
-            "intro" => "Write a function named vowelCount that counts and returns the number of vowels in a string parameter. The letters 'a', 'e', 'i', 'o' and 'u' are the vowels. both upper and lower case instances of vowels should be counted. The function vowelCount takes one parameter:",
-            "topic" => "string",
-            "diff" => "easy",
-            "score" => 15,
-            "func_name" => "vowelCount",
+        "intro" => "Write a function named vowelCount that counts and returns the number of vowels in a string parameter. The letters 'a', 'e', 'i', 'o' and 'u' are the vowels. both upper and lower case instances of vowels should be counted. The function vowelCount takes one parameter:",
+        "topic" => "string",
+        "diff" => "easy",
 
-            "params" => array(
-                array(
-                    "var_name" => "text",
-                    "type" => "string",
-                    "description" => "null"
-                )
-            ),
+        "func_name" => "vowelCount",
 
-            "test cases" => array(
-                array("I am the walrus", 5),
-                array("aeiou", 5),
-                array("I love you", 5)
-            )
-        )
+        "paramname" => "text",
+        "paramtype" => "string",
+
+        "inone" => "I am the welrus",
+        "outone" => "5",
+        "intwo" => "aeiou",
+        "outtwo" => "5",
     ),
-    "FILTER" => array(
-        "request_id" => "FILTER",
-        "topic" => array("string", "list", "dict", "all"),
-        "diff" => array("hard", "intermediate", "easy", "all"),
-        "keyword" => array("keyword may vary")
-    ),
-    "CREATE_EXAM" => array(
-        "request_id" => "CREATE_EXAM",
-        "questions" => array(
-            array("q1_ID", "score1"),
-            array("q2_ID", "score2"),
-            array("q3_ID", "score3"),
-            array("q4_ID", "score4"),
-            array("q4_ID", "score5")
-        ),
-        "semester" => "fall",
-        "year" => "2019",
-        "class" => "CS490"
-    ),
-    "GET_ALL" => array(
-        "request_id" => "GET_ALL"
-    )
 );
