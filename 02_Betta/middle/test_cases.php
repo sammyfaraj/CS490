@@ -19,9 +19,6 @@ $test_cases = array(
             array("1", "20"),
             array("2", "15"),
         ),
-        "semester" => "fall",
-        "year" => "2019",
-        "class" => "CS490"
     ),
     "GET_ALL" => array(
         "request_id" => "GET_ALL",
