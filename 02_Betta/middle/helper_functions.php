@@ -5,8 +5,12 @@ function router($input_data)
     $ret_to_frontend = null;
 
     switch ($input_data["request_id"]) {
-        case "LOGIN":
         case "ADD_QUESTION":
+            echo json_encode(array(
+                "response" => send_to_backend($input_data)
+            ));
+            break;
+        case "LOGIN":
         case "FILTER":
         case "GET_ALL":
         case "CREATE_EXAM":
