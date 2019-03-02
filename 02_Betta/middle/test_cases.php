@@ -83,6 +83,9 @@ $test_cases = array(
             "some answer for question 2",
             "some answer for question 3",
             "some answer for question 4"
+        ),
+        "expected_response" => array(
+            "response" => "Exam [exam_name] successfully submitted"
         )
     ),
     "GET_PENDING_EXAMS" => array(
