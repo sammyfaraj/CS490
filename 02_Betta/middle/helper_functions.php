@@ -4,26 +4,23 @@ include "test_cases.php";
 
 function router($input_data)
 {
-    $ret_to_frontend = null; $expect = null;
-    $req_id = $input_data["request_id"];
-    $test = $GLOBALS['test_cases'][$input_data["request_id"]];
-
-    if( $req_id == "LOGIN" || $req_id == "ADD_QUESTION" || $req_id == "FILTER" )
-        $expect = $test[0]['expected_response'];
-    else
-        $expect = $test['expected_response'];
-
-    switch ( $req_id ) {
+    switch ( $input_data["request_id"] ) {
         case "LOGIN":
+            echo send_to_backend($input_data);
+            break;
         case "ADD_QUESTION":
+            echo send_to_backend($input_data);
+            break;
         case "FILTER":
+            echo send_to_backend($input_data);
+            break;
         case "GET_ALL":
         case "CREATE_EXAM":
         case "RELEASE_EXAM":
             $encoded = send_to_backend($input_data);
             $decoded = json_decode($encoded, true);
 
-            $decoded['expected_response'] = $expect;
+//            $decoded['expected_response'] = $expect;
 
             return json_encode($decoded);
             break;
@@ -84,14 +81,35 @@ function run_test_cases()
     echo("<h1>Running Test Cases</h1>");
     echo("<h3 style='color: #ce0806'>sending data to backend URL: https://web.njit.edu/~jsf25/</h3>");
 
+    echo "COMPLETED:<br>";
+    echo "=> LOGIN:<br>";
+    echo "=> ADD_QUESTION:<br>";
+    echo "=> FiLTER:<br>";
+    echo "=> GET_ALL<br>";
+
+    echo "<br><br>IN PROGRESS:<br><br>";
+    echo "<b>TEACHER SIDE</b><br>";
+    echo "=> CREATE_EXAM:<br>";
+    echo "=> REVIEW_GRADES:<br>";
+    echo "=> END_EXAM:<br>";
+    echo "=> POST_FINAL_GRADES:<br>";
+
+    echo "<br><b>STUDENT SIDE</b><br>";
+    echo "=> IS_AVAILABLE:<br>";
+    echo "=> START_EXAM:<br>";
+    echo "=> SEE_SCORE:<br>";
+    echo "=> SUBMIT_EXAM:<br>";
+
+    echo "<br><b>AUTO_GRADER SIDE</b><br>";
+    echo "=> GET_PENDING_EXAMS:<br>";
+    echo "=> POST_TEMP_GRADES:<br>";
+
+
     foreach ($GLOBALS['test_cases'] as $k => $v) {
         if ( $k == "LOGIN" || $k == "ADD_QUESTION" || $k == "FILTER") {
             foreach ($v as $value) {
                 echo("<br><br>FRONT-END input for request_id: <b style='color: #ff6e39'>$k</b><br>");
                 var_dump($value);
-
-                echo("<br><br>EXPECTED response:<br>");
-                var_dump($value['expected_response']);
 
                 echo("<br><br>BACKEND response:<br>");
                 echo router($value);
