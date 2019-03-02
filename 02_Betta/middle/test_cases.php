@@ -107,7 +107,7 @@ $test_cases = array(
             array("q3", "score"),
             array("q4", "score"),
         ),
-        "expected_response" => "Exam [ id ] session has ended and grades are ready for review"
+        "expected_response" => "Temporary Grades Successfully added to DB"
     ),
     "POST_FINAL_GRADES" => array(
         "request_id" => "POST_FINAL_GRADES",
@@ -121,7 +121,7 @@ $test_cases = array(
             array("q3", "score"),
             array("q4", "score"),
         ),
-        "expected_response" => "Exam [ id ] session has ended and grades are ready for review"
+        "expected_response" => "Exam [ id OR exam_name ] for student [ student_name OR id ] grades reviewed and posted"
     )
 );
 
