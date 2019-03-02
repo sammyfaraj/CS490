@@ -20,45 +20,21 @@ if ($conn->connect_error)
 
 /*********************** 2 **********************/
 
-$topic = $data["topic"];
-$diff = $data["diff"];
-$key = $data["key"];
+$query = "SELECT * FROM masterquestions";
 
-
-$query = "SELECT * FROM masterquestions WHERE topic = '$topic' AND diff = '$diff'";
-
-$filter_result=array();
+$getall_result=array();
 
 if ($result = $conn->query($query)) {
 
     while ($row = $result->fetch_row()) {
-    
-    	if (strpos($row, $key) !== false) 
-	    {
-		      $filter_result[]=$row;
-	    }
-		
+		$getall_result[]=$row;
     }
 	
     $result->close();
 }
 
-/*
 
---------ignore--------
-
-$query = $conn->query($sql);
-
-$result = mysqli_fetch_row($query);
-
-$filter_result=[];
-
-foreach ($result as $row)	
-{
-
-}
-*/
-echo json_encode($filter_result);
+echo json_encode($getall_result);
 
 $conn->close()
 

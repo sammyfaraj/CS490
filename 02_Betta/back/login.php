@@ -23,8 +23,7 @@ $conn = $db->get_connection();
 
 if ($conn->connect_error)
     die("<br>Connection failed: " . $conn->connect_error);
-else
-  echo "Connected.";
+
 
 
 #Retrieve raw HTTP request data

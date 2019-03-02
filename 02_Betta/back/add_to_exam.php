@@ -22,7 +22,9 @@ if ($conn->connect_error)
 
 //front end to create own exam name---
 
+$masterid = $data["masterid"];
 $exam_name = $data["exam_name"];
+$points = $data["points"];
 
 $query="CREATE TABLE IF NOT EXISTS $exam_name
 	(
@@ -37,9 +39,55 @@ $query="CREATE TABLE IF NOT EXISTS $exam_name
 $result = $conn->query($query);
 
 if($result)
-	echo "Exam table added.";
+	echo "Exam created.";
 else 
-	echo "Exam table not added.";
+	echo "Exam not created.";
+
+$query = "SELECT * FROM masterquestions WHERE id = '$masterid'";
+
+if ($result = $conn->query($query)) 
+{
+    $row = $result->fetch_row();
+}
+
+$query="INSERT INTO $exam_name (`points`, `id`) VALUES ('$points', '$masterid')";
+
+$result = $conn->query($query);
+
+if($result)
+	echo "Question added.";
+else 
+	echo "Question not added.";
+
+/*
+$question=array();
+
+if ($result = $conn->query($query)) {
+
+    $row = $result->fetch_row();
+	$question=$row;
+	
+	//echo $question[0][0];
+	
+    $result->close();
+}
+*/
+
+
+
+
+
+
+/*
+$query="insert into $exam_name (`points`, `id`) VALUES ('$points', '$masterid')";
+
+$result = $conn->query($query);
+
+if($result)
+	echo "Question added to exam.";
+else 
+	echo "Question not added to exam.";
+*/
 
 //might have to fix this---
 //innoDB automatically indexes foreign keys.
