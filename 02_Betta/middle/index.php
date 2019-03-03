@@ -13,4 +13,4 @@ $data = get_http_request();
 if (is_null($data))         # Check if request is coming from Front-end and data is successfully retrieved
     run_test_cases();
 else                        # Call router
-    echo router($data);
+    router($data);
