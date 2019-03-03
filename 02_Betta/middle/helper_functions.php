@@ -15,48 +15,45 @@ function router($input_data)
             echo send_to_backend($input_data);
             break;
         case "GET_ALL":
+            echo send_to_backend($input_data);
+            break;
         case "CREATE_EXAM":
-        case "RELEASE_EXAM":
-            $encoded = send_to_backend($input_data);
-            $decoded = json_decode($encoded, true);
-
-//            $decoded['expected_response'] = $expect;
-
-            return json_encode($decoded);
+            $response = array(
+                "response" => send_to_backend($input_data)
+            );
+            echo json_encode($response);
+            break;
+        case "IS_AVAILABLE":
+            $response = array(
+                "active" => send_to_backend($input_data)
+            );
+            echo json_encode($response);
+            break;
+        case "START_EXAM":
+            echo send_to_backend($input_data);
+            break;
+        case "SUBMIT_EXAM":
+            echo send_to_backend($input_data);
             break;
         case "END_EXAM":
-            // TODO: Update exams IN_PROGRESS as CLOSED
-            // TODO: Calculate Grades + update scores in db + mark exam as "TO REVIEW GRADES"
-            // TODO: Return response OK/Error
-            echo("End Exam block");
+            echo send_to_backend($input_data);
+            break;
+        case "GET_PENDING_EXAMS":
+            echo send_to_backend($input_data);
+            break;
+        case "POST_TEMP_GRADES":
+            echo send_to_backend($input_data);
             break;
         case "REVIEW_GRADES":
-            // TODO: Request from backend list of "TO REVIEW GRADES" exams  + Student Name associated w/ it
-            // TODO: Send response to Front-End
-            echo("Review grades block");
+            echo send_to_backend($input_data);
             break;
-        case "SUBMIT_GRADES":
-            // TODO: Send to Backend reviewed exams
-            // TODO: Return response OK/Error
-            echo("Submit grades block");
+        case "POST_FINAL_GRADES":
+            echo send_to_backend($input_data);
             break;
-        case "GET_EXAM":
-            // TODO: Request from back if student has available test
-            // TODO: Send response back to frontend
-            echo("Student main block");
-            break;
-        case "S_TEST":
-            // TODO: Request from backend exam assigned to student
-            // TODO: Send response back to frontend
-            echo("Exam request block");
-            break;
-        case "S_GRADES":
-            // TODO: Request exam grade from backend, if test is stil in "TO REVIEW GRADES" status, return
-            //  "Grading in progress" or coding (YET TO DECIDE)
-            echo("Student Grade Request block");
+        case "SEE_SCORE":
+            echo send_to_backend($input_data);
             break;
         default:
-            // TODO: Invalid request
             echo("Invalid request block");
     }
 }
@@ -84,7 +81,7 @@ function run_test_cases()
     echo "COMPLETED:<br>";
     echo "=> LOGIN:<br>";
     echo "=> ADD_QUESTION:<br>";
-    echo "=> FiLTER:<br>";
+    echo "=> FILTER:<br>";
     echo "=> GET_ALL<br>";
 
     echo "<br><br>IN PROGRESS:<br><br>";
