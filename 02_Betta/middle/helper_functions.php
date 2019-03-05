@@ -18,14 +18,18 @@ function router($input_data)
             echo send_to_backend($input_data);
             break;
         case "CREATE_EXAM":
+            $exam_name = send_to_backend($input_data);
+
             $response = array(
-                "response" => send_to_backend($input_data)
+                "response" => "Exam $exam_name created Successfully"
             );
             echo json_encode($response);
             break;
         case "IS_AVAILABLE":
+            $is_there_a_test_available = json_decode(send_to_backend($input_data), true);
+
             $response = array(
-                "active" => send_to_backend($input_data)
+                "active" => $is_there_a_test_available
             );
             echo json_encode($response);
             break;
@@ -78,13 +82,13 @@ function run_test_cases()
     echo("<h1>Running Test Cases</h1>");
     echo("<h3 style='color: #ce0806'>sending data to backend URL: https://web.njit.edu/~jsf25/</h3>");
 
-    echo "COMPLETED:<br>";
+    echo "<p style='color: #0332ff'>COMPLETED:</p>";
     echo "=> LOGIN:<br>";
     echo "=> ADD_QUESTION:<br>";
     echo "=> FILTER:<br>";
     echo "=> GET_ALL<br>";
 
-    echo "<br><br>IN PROGRESS:<br><br>";
+    echo "<p style='color: #ff0012'>IN PROGRESS:</p>";
     echo "<b>TEACHER SIDE</b><br>";
     echo "=> CREATE_EXAM:<br>";
     echo "=> REVIEW_GRADES:<br>";
