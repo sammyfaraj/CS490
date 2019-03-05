@@ -8,36 +8,32 @@
 $test_cases = array(
     "CREATE_EXAM" => array(
         "request_id" => "CREATE_EXAM",
-        "exam_name" => "Spring2019",
-        "description" => "Creates exam in DB and set its status to 'active'",
-        "questions" => array(
-            array("1", "20"),
-            array("2", "15"),
-            array("3", "10")
-        ),
-
+        "exam_name" => "Fall2019",
+        "description" => "Creates exam in DB and set its status to '1'",
+        "questions" => array('28', '29', '30'),
+        "scores" => array('20', '40', '40'),
         "expected_response" => array("response" => "Exam [ exam_name ] Created Successfully")
     ),
     "IS_AVAILABLE" => array(
         "request_id" => "IS_AVAILABLE",
-        "description" => "Check if there is any 'active' exam on DB, response will be either 0 or 1",
+        "description" => "Checks if there is a exam where exam_status is 1",
         "expected_response" => array(
             "active" => "1 or 0, where 1 means active, and 0 means inactive",
         )
     ),
-    "START_EXAM" => array(
+    "GET_ACTIVE_EXAM" => array(
         "request_id" => "START_EXAM",
-        "description" => "Student has an available exam and want to start taking test",
-        "expected_response" => "All questions assigned to available"
+        "description" => "Request from db exam WHERE exam_status is 1",
+        "expected_response" => "All questions assigned to available exam"
     ),
     "SUBMIT_EXAM" => array(
         "request_id" => "SUBMIT_EXAM",
-        "description" => "this is for when a student clicks on submit test",
+        "description" => "This cases insert into database exam answers",
         "username" => "student1",
         "exam_name" => "Spring2019",
-        "exam_status" => "THIS IS FOR DATABASE ONLY, this exam is unique to student profile, so set its status to 'PENDING'",
+        "grade_status" => "THIS IS FOR DATABASE ONLY, this exam is unique to student profile, so set its grade_status to '0'",
         "answers" => array(
-            " def vowelCount(test):
+            "def vowelCount(test):
                         test.lower()
                         counter = 0
 
@@ -56,15 +52,14 @@ $test_cases = array(
     ),
     "END_EXAM" => array(
         "request_id" => "END_EXAM",
-        "exam_name" => "Spring2019",
-        "description" => "Ends exam session, DB will set exam status to 'inactive' - GradingTool gets activated",
+        "description" => "Ends exam session, DB will set exam ALL exam_status to '0' - GradingTool gets activated",
         "expected_response" => array(
-            "response" => "Exam [ id ] session has ended and grades are ready for review"
+            "response" => "Exam [ exam_name ] session has ended and grades are ready for review"
         )
     ),
     "GET_PENDING_EXAMS" => array(
         "request_id" => "GET_PENDING_EXAMS",
-        "description" => "This will request from DB all students exams that need to be graded by GradingTool",
+        "description" => "This will request from DB all students exams that WHERE grade_status is '0' - need to be graded by GradingTool",
         "expected_response" => array(
             "Description" => "TO BE DECIDED BY BACKEND"
         )
@@ -72,20 +67,17 @@ $test_cases = array(
     "POST_TEMP_GRADES" => array(
         "request_id" => "POST_TEMP_GRADES",
         "description" => "When GradingTool finishes grading exams - post result onto DB
-                          SETS exam status to 'AUTO_GRADED'",
+                          SETS grade_status to '1'",
         "username" => "student1",
         "exam_name" => "Spring2019",
         "score" => array(
-            array("q1", "score"),
-            array("q2", "score"),
-            array("q3", "score"),
-            array("q4", "score"),
+            array("scr1", "scr2", "scr3"),
         ),
         "expected_response" => "Temporary Grades Successfully added to DB"
     ),
     "REVIEW_GRADES" => array(
         "request_id" => "REVIEW_GRADES",
-        "description" => "Requests from database all student exams WHERE status is 'AUTO_GRADED'",
+        "description" => "Requests username, answer, grades, from database where WHERE grade_status is '1'",
         "expected_response" => array(
             "Student1_exam1",
             "Student2_exam1",
@@ -95,27 +87,21 @@ $test_cases = array(
     "POST_FINAL_GRADES" => array(
         "request_id" => "POST_FINAL_GRADES",
         "description" => "When teacher finishes grading exams - post result onto DB
-                          SETS exam status to 'GRADED'",
+                          SETS grade_status to '2'",
         "username" => "student1",
-        "exam_name" => "Spring2019",
-        "score" => array(
-            array("q1", "score"),
-            array("q2", "score"),
-            array("q3", "score"),
-            array("q4", "score"),
-        ),
-        "expected_response" => "Exam [ id OR exam_name ] for student [ student_name OR id ] grades reviewed and posted"
+        "score" => array(20, 40, 10),
+        "comments" => array('good', 'bad', 'good'),
+
+        "expected_response" => "Exam [ exam_name ] for student [ student_name ] grades successfully reviewed and posted"
     ),
     "SEE_SCORE" => array(
-    "request_id" => "SEE_SCORE",
-    "description" => "Student is requesting to see grade for an exam taken, IF EXAM STATUS is NOT 'GRADED' return 
-                         'grade not yet available' otherwise return grades",
-    "expected_response" => array(
-        array("q1", "score"),
-        array("q2", "score"),
-        array("q3", "score")
-    ),
-)
+        "request_id" => "SEE_SCORE",
+        "description" => "username is requesting from db grades, comments where exam is grade_status is '2'",
+        "username" => "student1",
+        "expected_response" => array(
+            "grade1", "grade2", "grade3"
+        ),
+    )
 );
 
 $completed = array(
