@@ -35,8 +35,23 @@ input[type=text] {
 
 input[type=text2] {
 	background-color: #feffe5;
-	width: 25%;
+	width: 31%;
 	padding: 12px 20px;
 	margin: 8px 0;
 	box-sizing: border-box;
 }
+
+.qbutton  {
+	background-color: #feffe5;
+  width:50%;
+	color: black;
+	padding: 12px 20px;
+	text-align: middle;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+ 	box-sizing: border-box;
+}
+

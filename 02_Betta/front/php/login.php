@@ -1,22 +1,7 @@
 <?php
-
-  $url = "https://web.njit.edu/~bt74/betta/middleware/index.php";
-  $requestid = $_POST['request_id'];
+  $url = "https://web.njit.edu/~bt74/betta/middleware/";
   
-  if ($requestid === "LOGIN"){
-    $username=$_POST['username'];
-    $password=$_POST['password'];
-    $data = array('request_id' => $requestid, 'username' => $username,'password' =>$password); 
-  } 
-  elseif ($requestid === "GET_ALL"){
-    $data = array('request_id' => $requestid);
-  }
-  elseif ($requestid === "ADD_QUESTION"){
-    $data = array('request_id' => $requestid);
-  }
-  else{
-      $data = array('request_id' => $requestid);
-  }
+  $data = $_POST;
       
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
