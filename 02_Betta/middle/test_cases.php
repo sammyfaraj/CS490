@@ -6,62 +6,27 @@
  */
 
 $test_cases = array(
-    "CREATE_EXAM" => array(
-        "request_id" => "CREATE_EXAM",
-        "exam_name" => "Fall2019",
-        "description" => "Creates exam in DB and set its status to '1'",
-        "questions" => array('28', '29', '30'),
-        "scores" => array('20', '40', '40'),
-        "expected_response" => array("response" => "Exam [ exam_name ] Created Successfully")
-    ),
-    "IS_AVAILABLE" => array(
-        "request_id" => "IS_AVAILABLE",
-        "description" => "Checks if there is a exam where exam_status is 1",
-        "expected_response" => array(
-            "active" => "1 or 0, where 1 means active, and 0 means inactive",
-        )
-    ),
-    "GET_ACTIVE_EXAM" => array(
-        "request_id" => "START_EXAM",
-        "description" => "Request from db exam WHERE exam_status is 1",
-        "expected_response" => "All questions assigned to available exam"
-    ),
     "SUBMIT_EXAM" => array(
-        "request_id" => "SUBMIT_EXAM",
-        "description" => "This cases insert into database exam answers",
-        "username" => "student1",
-        "exam_name" => "Spring2019",
-        "grade_status" => "THIS IS FOR DATABASE ONLY, this exam is unique to student profile, so set its grade_status to '0'",
-        "answers" => array(
-            "def vowelCount(test):
-                        test.lower()
-                        counter = 0
+        "description" => "BACKEND never sees this request_id",
 
-                        for chr in test:
-                            if chr in \"AEIOUaeiou\":
-                                counter += 1
-        
-                        return counter",
-            "some answer for question 2",
-            "some answer for question 3",
-            "some answer for question 4"
-        ),
-        "expected_response" => array(
-            "response" => "Exam [exam_name] successfully submitted"
-        )
+        "request_id" => "SUBMIT_EXAM",
+        "username" => "student1",
+        "grading_status" => "0",
+        "answers" => "ans1|~|ans2|~|ans3|~|ans4|~|...|~|ansN",
+        "expected_response" => array("response" => "Exam [exam_name] successfully submitted")
     ),
-    "END_EXAM" => array(
-        "request_id" => "END_EXAM",
-        "description" => "Ends exam session, DB will set exam ALL exam_status to '0' - GradingTool gets activated",
+    "GET_TEST_CASES" => array(
+        "request_id" => "GET_TEST_CASES",
+        "description" => "This requests the backend for the active exam question test cases, func_name, score",
         "expected_response" => array(
-            "response" => "Exam [ exam_name ] session has ended and grades are ready for review"
-        )
-    ),
-    "GET_PENDING_EXAMS" => array(
-        "request_id" => "GET_PENDING_EXAMS",
-        "description" => "This will request from DB all students exams that WHERE grade_status is '0' - need to be graded by GradingTool",
-        "expected_response" => array(
-            "Description" => "TO BE DECIDED BY BACKEND"
+            array(
+                "hello",                                    # func_name
+                "10",                                       # question score
+                "Braulio", "Hello Braulio, How are you?",   # inone, outone
+                "Junior", "Hello Junior, How are you?",     # intwo, outtwo
+                "5"                                         # question id
+            ),
+            array("get_vowels", "10", "CS490 is awesome!", "5", "CS490 sucks, but NJIT is awesome", 8, 7)
         )
     ),
     "POST_TEMP_GRADES" => array(
@@ -69,15 +34,15 @@ $test_cases = array(
         "description" => "When GradingTool finishes grading exams - post result onto DB
                           SETS grade_status to '1'",
         "username" => "student1",
-        "exam_name" => "Spring2019",
-        "score" => array(
-            array("scr1", "scr2", "scr3"),
-        ),
+        "grading_status" => "0",
+        "answers" => "ans1|~|ans2|~|ans3|~|ans4|~|...|~|ansN",
+        "scores" => "scr1,scr2,scr3,...,scrN",
+        "comments" => "success,incorrect function name,success,failed,failed",
         "expected_response" => "Temporary Grades Successfully added to DB"
     ),
     "REVIEW_GRADES" => array(
         "request_id" => "REVIEW_GRADES",
-        "description" => "Requests username, answer, grades, from database where WHERE grade_status is '1'",
+        "description" => "Requests username, answer, grades/scores, comments from database where WHERE grade_status is '1'",
         "expected_response" => array(
             "Student1_exam1",
             "Student2_exam1",
@@ -99,7 +64,8 @@ $test_cases = array(
         "description" => "username is requesting from db grades, comments where exam is grade_status is '2'",
         "username" => "student1",
         "expected_response" => array(
-            "grade1", "grade2", "grade3"
+            "grades" => "scr1,scr2,scr3,...,scrN",
+            "comments" => "cmt1,cmt2,cmt3,...,cmtN"
         ),
     )
 );
@@ -227,5 +193,27 @@ $completed = array(
                 "question 4 row",
             ),
         ),
+    ),
+    "CREATE_EXAM" => array(
+        "request_id" => "CREATE_EXAM",
+        "exam_name" => "Fall2019",
+        "description" => "Creates exam in DB and set its status to '1'",
+        "questions" => array('28', '29', '30'),
+        "scores" => array('20', '40', '40'),
+        "expected_response" => array("response" => "Exam [ exam_name ] Created Successfully")
+    ),
+    "IS_AVAILABLE" => array(
+        "request_id" => "IS_AVAILABLE",
+        "description" => "Checks if there is a exam where exam_status is 1",
+        "expected_response" => array(
+            "active" => "1 or 0, where 1 means active, and 0 means inactive",
+        )
+    ),
+    "END_EXAM" => array(
+        "request_id" => "END_EXAM",
+        "description" => "Ends exam session, DB will set exam ALL exam_status to '0'",
+        "expected_response" => array(
+            "response" => "Exam [ exam_name ] session has ended and grades are ready for review"
+        )
     ),
 );
