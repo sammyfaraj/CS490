@@ -38,6 +38,14 @@ $sql="CREATE TABLE IF NOT EXISTS `masterquestions`
 
 $create = $conn->query($sql);
 
+$alter = "alter table `masterquestions` auto_increment = 1";
+$altered = $conn->query($alter);
+
+if($altered)
+  echo "Table is altered";
+else
+  echo "Table not altered";
+
 
 $intro = $data["intro"];
 $topic = $data["topic"];

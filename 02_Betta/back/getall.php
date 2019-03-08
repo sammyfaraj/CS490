@@ -20,21 +20,44 @@ if ($conn->connect_error)
 
 /*********************** 2 **********************/
 
-$query = "SELECT * FROM masterquestions";
+if (!is_null($row[0])){
 
-$getall_result=array();
+      $query = "SELECT * FROM $row[0]";
 
-if ($result = $conn->query($query)) {
+      $getall_result=array();
 
-    while ($row = $result->fetch_row()) {
-		$getall_result[]=$row;
-    }
+      if ($result = $conn->query($query)) 
+      {
+
+          while ($row = $result->fetch_row()) 
+          {
+            //array_push($getall_result, $row);
+		        $getall_result[]=$row[1];
+          }
 	
-    $result->close();
+      $result->close();
+      }
+      
+      echo json_encode($getall_result);
 }
+else
+{
+      $query = "SELECT * FROM masterquestions";
 
+      $getall_result=array();
 
-echo json_encode($getall_result);
+      if ($result = $conn->query($query)) 
+      {
+          while ($row = $result->fetch_row()) 
+          {
+          //array_push($getall_result, $row);
+		      $getall_result[]=$row;
+          }
+      $result->close();
+       }
+       
+      echo json_encode($getall_result);
+}
 
 $conn->close()
 

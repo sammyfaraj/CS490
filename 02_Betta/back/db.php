@@ -7,7 +7,7 @@ Class DB{
 
         // STEP 02: Get Database Connection
         $conn = new mysqli($config["servername"], $config["username"], $config["password"], $config["database"])
-            or die("<br>Could not connect to databse");
+            or die("<br>Could not connect to database");
 
         // STEP 03: Return Connection
         return $conn;
