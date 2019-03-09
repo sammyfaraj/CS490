@@ -58,8 +58,10 @@ function route($data)
                 echo json_encode("Exam not Available");
             break;
         case "GET_TEST_CASES":
-            include "is_available.php"; //getting table name
-            include "get_cases.php";
+            $name = get_active_exam_name();
+
+            $test_cases = get_cases($name);
+            echo json_encode($test_cases);
             break;
         case "POST_TEMP_GRADES":
             $exam_name = get_active_exam_name();

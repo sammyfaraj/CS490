@@ -29,9 +29,9 @@ function router($input_data)
         case "END_EXAM":
             echo send_to_backend($input_data);
             break;
-//        case "REVIEW_GRADES":
-//            echo send_to_backend($input_data);
-//            break;
+        case "REVIEW_GRADES":
+            echo send_to_backend($input_data);
+            break;
 //        case "POST_FINAL_GRADES":
 //            echo send_to_backend($input_data);
 //            break;
@@ -189,7 +189,7 @@ function run_answer($ans, $fn, $input)
 function auto_grader($in_data)
 {
     $get_test_cases = array("request_id" => "GET_TEST_CASES");
-    $test_cases = json_decode(send_to_backend($get_test_cases), true);
+    $test_cases = send_to_backend($get_test_cases);
 
     echo "<br>TEST CASES FROM BACKEND<br>";
     var_dump($test_cases);
