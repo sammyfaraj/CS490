@@ -1,99 +1,86 @@
 <?php
 
-/*
-		
-*/
+include "login.php";
+include "getall.php";
+include "addquestion.php";
+include "filter.php";
+include "get_active_exam.php";
+include "create_exam.php";
+//include "add_to_exam.php";
+include "is_available.php";
+include "answers.php";
 
-#Retrieve raw HTTP request data
-$str_json = file_get_contents('php://input');
-
-#Decode raw HTTP data into json format
-$decoded_data = json_decode($str_json, true);
+# Retrieve raw HTTP request data
+$decoded_data = get_http_request();
 
 if (is_null($decoded_data)){
-  	
-	//$decoded_data = array("request_id"=>"START_EXAM","exam_name"=> "spring19finals");
-	echo "Data is Null";
-	
-	//$decoded_data = array("request_id"=>"CREATE_EXAM","questions" => array("1","2"));
-		
-		//echo $decoded_data['questions'][1];
-		//question should be added one by one;
-		//echo $decoded_data['questions']['0'][0];
-		
-	//route($decoded_data);
+    echo "Data is Null";
+    $data = array(
+        "request_id" => "GET_ACTIVE_EXAM"
+    );
+    route($data);
 }
-else{
-	route($decoded_data);
-}
+else
+    route($decoded_data);
 
 function route($data)
 {
 
     switch ($data["request_id"]) {
         case "LOGIN":
-			include "login.php";
-            //header("Location:https://web.njit.edu/~jsf25/login.php"); //header("Location:login.php");
-			//exit;
-            break;
-        case "ADD_QUESTION":
-        //echo "Question addition skipped...";
-			include "addquestion.php";
-            //header("Location:https://web.njit.edu/~jsf25/addquestion.php"); //header("Location:addquestion.php");
-			//exit;
-            break;
-        case "FILTER":
-            include "filter.php";
-            //header("Location:https://web.njit.edu/~jsf25/filter.php"); //header("Location:filter.php");
-			//exit;
+            $response = verify_credentials($data["username"], $data["password"]);
+            echo json_encode(array("role" => $response));
             break;
         case "GET_ALL":
-            include "getall.php";
+            $all_questions = get_all_questions();
+            echo json_encode($all_questions);
+            break;
+        case "ADD_QUESTION":
+            $response = add_question($data);
+            echo json_encode(array("response" => $response));
+            break;
+        case "FILTER":
+            $response = filter($data);
+            echo json_encode($response);
             break;
         case "CREATE_EXAM":
-			include "create_exam.php";
-            //header("Location:https://web.njit.edu/~jsf25/create_exam.php"); //header("Location:create_exam.php");
-			//exit;
+            create_exam($data);
             break;
-		case "ADD_TO_EXAM":
-            include "add_to_exam.php";
-            //header("Location:https://web.njit.edu/~jsf25/create_exam.php"); //header("Location:create_exam.php");
-			//exit;
+        case "IS_AVAILABLE":
+            $response = is_available();
+            echo json_encode(array("status" => $response));
             break;
-		case "IS_AVAILABLE":
-            include "is_available.php";
-            //header("Location:https://web.njit.edu/~jsf25/create_exam.php"); //header("Location:create_exam.php");
-			//exit;
+        case "GET_ACTIVE_EXAM":
+            if (is_available()) {
+                $response = get_active_exam();
+                echo json_encode($response);
+            } else
+                echo json_encode("Exam not Available");
             break;
-		case "GET_ACTIVE_EXAM":
-            include "is_available.php";
-            include "getall.php";
-            //header("Location:https://web.njit.edu/~jsf25/create_exam.php"); //header("Location:create_exam.php");
-			//exit;
-            break;
-    case "GET_TEST_CASES":
+        case "GET_TEST_CASES":
             include "is_available.php"; //getting table name
-            echo $row[0];
             include "get_cases.php";
-        case "RELEASE_EXAM":
-            include "release_exam.php";
             break;
-        case "SUBMIT_EXAM":
-            include "is_available.php";
-            include "answers.php";
+        case "POST_TEMP_GRADES":
+            $exam_name = get_active_exam_name();
+            answers($data, $exam_name."results");
             break;
         case "END_EXAM":
-			      include "end_exam.php";
-            // TODO: Update exams IN_PROGRESS as CLOSED
-            // TODO: Calculate Grades + update scores in db + mark exam as "TO REVIEW GRADES"
-            // TODO: Return response OK/Error
+            include "end_exam.php";
+            $response = end_exam();
+            echo json_encode(array("response" => $response));
             break;
         default:
-            // TODO: Invalid request
-            echo("Invalid request block");
+            echo("BACKEND - Invalid request block");
     }
 }
 
-//$conn->close()
+function get_http_request()
+    /** Decodes HTTP request from Front-end **/
+{
+    $raw_data = file_get_contents("php://input");
+    $decoded_json = json_decode($raw_data, true);
+    return $decoded_json;
+}
 
-?>
+

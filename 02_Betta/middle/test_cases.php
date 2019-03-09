@@ -25,8 +25,10 @@ $test_cases = array(
                 "Braulio", "Hello Braulio, How are you?",   # inone, outone
                 "Junior", "Hello Junior, How are you?",     # intwo, outtwo
                 "5"                                         # question id
-            ),
-            array("get_vowels", "10", "CS490 is awesome!", "5", "CS490 sucks, but NJIT is awesome", 8, 7)
+            ), #q1
+            array(
+                "get_vowels", "10", "CS490 is awesome!", "5", "CS490 sucks, but NJIT is awesome", 8, 7
+            ) #q2
         )
     ),
     "POST_TEMP_GRADES" => array(

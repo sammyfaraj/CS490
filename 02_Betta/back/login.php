@@ -1,85 +1,22 @@
 <?php
 
-/*
+include "db.php";
 
-	FOR USERS LOGGING IN:
-	
-	1. 	GETS CREDENTIALS FOR DATABASE AND LOG IN.
-		CHECKS IF CONNECTION FAILED.
-		RECEIVES AND DECODE CONTENTS FROM JSON FILE
-	
-	2.	CREATES TABLE FOR 'profile'
-		SQL STATEMENT TO FIND IF USER HAS AUTHENTICATION
-		RETURNS AUTHENTICATION RESULT AS "role"
-		
-*/
-
-/*********************** 1 **********************/
-
-include"db.php";
-
-$db = new DB();
-$conn = $db->get_connection();
-
-if ($conn->connect_error)
-    die("<br>Connection failed: " . $conn->connect_error);
-
-
-
-#Retrieve raw HTTP request data
-//$str_json = file_get_contents('php://input');
-
-#Decode raw HTTP data into json format
-//$decoded_data = json_decode($str_json, true);
-
-#Retrieve values
-$username = $data["username"];
-$password = $data["password"];
-
-/*********************** 2 **********************/
-$sql="CREATE TABLE IF NOT EXISTS `profiles`
-	(
-    `username` varchar(255) NOT NULL default '',
-    `password` varchar(255) NOT NULL default '',
-	`role` INT,
-    PRIMARY KEY  (`username`)
-	) ENGINE = InnoDB;";
-
-if ($conn->query($sql) === FALSE)
-    echo "<br>Table profile not created successfully";
-
-
-//password checking
-$sql = "SELECT * FROM profiles WHERE username = '$username' AND password = '$password'";
-
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) 
+function verify_credentials($user, $pass)
 {
+    $db = new DB();
+    $conn = $db->get_connection();
 
-  $sql = "SELECT * FROM profiles WHERE username = '$username' AND role = '2'";
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0) 
-  {
-    $ret_json->role = '2';
-	  $json_message = json_encode($ret_json);
-	  echo $json_message;
-  }
-  else
-  {
-    $ret_json->role = '1';
-	  $json_message = json_encode($ret_json);
-	  echo $json_message;
-  }
+    $result = $conn->query("SELECT * FROM profiles WHERE username = '$user' AND password = '$pass'");
 
-} 
-else 
-{   //Credentials are invalid;
-    $ret_json->role = "0";
-	  $json_message = json_encode($ret_json);
-	  echo $json_message;
+    $role = $result->num_rows > 0 ? $result->fetch_array()['role'] : 0;
+
+    $conn->close();
+
+    return $role;
 }
 
-//$conn->close()
-
-?>
+# For debugging purposes, run local host localhost:8080/login.php AND uncomment lines below
+//echo "<br>".verify_credentials("teacher1", "password");
+//echo "<br>".verify_credentials("student1", "password");
+//echo "<br>".verify_credentials("student2", "password");

@@ -1,66 +1,42 @@
 <?php
 
-/*
-	
-*/
-
-/*********************** 1 **********************/
 require_once("db.php");
+//
+//function get_active_exam($exam_name)
+//{
+//    $db = new DB();
+//    $conn = $db->get_connection();
+//
+//    $query = "SELECT * FROM $exam_name";
+//    if ($result = $conn->query($query)) {
+//
+//        while ($row = $result->fetch_row()) {
+//            array_push($getall_result, $row);
+//            $sql = "SELECT intro FROM masterquestions WHERE id = $row[2]";
+//            $question = $result->fetch_row();
+//            $getall_result[] = $question[0];
+//        }
+//
+//        $result->close();
+//    }
+//    return $getall_result;
+//}
 
-$db = new DB();
-$conn = $db->get_connection();
-
-// Check connection
-if ($conn->connect_error)
-    die("<br>Connection failed: " . $conn->connect_error);
-
-
-//$json = file_get_contents('php://input'); 
-//$received = json_decode($json, true);
-
-/*********************** 2 **********************/
-if ($data["request_id"] == "GET_ALL")
+function get_all_questions()
 {
-   
-      $query = "SELECT * FROM masterquestions";
+    $db = new DB();
+    $conn = $db->get_connection();
 
-      $getall_result=array();
+    $all_questions = array();
 
-      if ($result = $conn->query($query)) 
-      {
-          while ($row = $result->fetch_row()) 
-          {
-          //array_push($getall_result, $row);
-		      $getall_result[]=$row;
-          }
-      $result->close();
-       }
-       
-      echo json_encode($getall_result);
-}
-else if ($data["request_id"] == "GET_ACTIVE_EXAM")
-{
+    if ($result = $conn->query("SELECT * FROM masterquestions"))
+        while ($row = $result->fetch_row())
+            $all_questions[] = $row;
 
-      $query = "SELECT * FROM $row[0]";
-      if ($result = $conn->query($query)) 
-      {
-        
-          while ($row = $result->fetch_row()) 
-          {
+    $conn->close();
 
-            //array_push($getall_result, $row);
-            //$sql = "SELECT intro FROM masterquestions WHERE id = $row[2]";
-            //$question = $result->fetch_row();                                    
-		        //$getall_result[]=$question[0];
-          }
-	
-      $result->close();
-      }
-      
-      echo json_encode($getall_result);
+    return $all_questions;
 }
 
 
-$conn->close()
 
-?>
