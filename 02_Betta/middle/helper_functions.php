@@ -59,8 +59,8 @@ function router($input_data)
 function send_to_backend($input_data)
     /** Sends input data from front-end to backend **/
 {
-//    $url = "https://web.njit.edu/~jsf25/index.php";
-    $url = "https://web.njit.edu/~bt74/betta/backend/index.php";
+    $url = "https://web.njit.edu/~jsf25/index.php";
+//    $url = "https://web.njit.edu/~bt74/betta/backend/index.php";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
