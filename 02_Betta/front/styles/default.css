@@ -17,6 +17,7 @@ body {
 	min-height: calc(100vh - 70px);
 	text-align: center;
 	font-size: 150%;
+  overflow: scroll;
 }
 
 
@@ -66,6 +67,14 @@ input[type=password] {
 	margin-top: 150px; 
  }
  
- 
+.row {
+  white-space: nowrap;
+  
+}
+
+.row > div {
+  width: 300px;
+  display: inline-block;
+}
  
 }

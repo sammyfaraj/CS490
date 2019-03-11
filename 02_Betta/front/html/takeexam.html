@@ -5,10 +5,13 @@
     <link rel="stylesheet" href="../styles/default.css" />
 	<script async src="../javascript/main.js"></script>
   </head>
-  <body>
+  <body onload=getactive();>
     <h1>EXAM</h1> 
-	<div class="space"></div>
-	<input type="button" onclick="location.href='studentview.html';" value="Submit Exam">
+    <br>
+    <h1 id="buttoninright" ></h1>
+    <br> 
+	  <input type="button" onclick="submitexam(this.form);" value="Submit Exam">
+    <br>     <br>     <br>     <br> 
   </body>
   <footer>
     <p>Credits to: Sammy Faraj, Eddie Tonaco, Junior Figuereo</p>

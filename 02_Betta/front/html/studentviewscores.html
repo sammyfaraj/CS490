@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Welcome Student</title>
+    <title>Student Scores</title>
     <link rel="stylesheet" href="../styles/default.css" />
 	<script async src="../javascript/main.js"></script>
   </head>
-  <body>
-	  <h1>Student Page</h1> 
-	  <div class="space"></div>
-      <input type="button" onclick="sisavailable();" value="Go To Exam">
-	  <div class="space"></div>
-	  <input type="button" onclick="location.href='studentviewscores.html';" value="View Score">
-	  <div class="space"></div>
+  <body onload="getfinalgrades();">
+	  <h1>Student Scores</h1> 
+     <br></br>
+     <div id="buttonin"></div>
+     <br></br>
+     <input type="button" onclick="location.href='studentview.html';"  value="Return Home">
+     <br></br>
+     <br></br>
   </body>
   <footer>
     <p>Credits to: Sammy Faraj, Eddie Tonaco, Junior Figuereo</p>

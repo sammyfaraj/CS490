@@ -1,6 +1,6 @@
 <?php
+
   $url = "https://web.njit.edu/~bt74/betta/middleware/";
-  
   $data = $_POST;
       
   $ch = curl_init();

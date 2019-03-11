@@ -12,7 +12,7 @@ function get_test_cases($name)
         
         $query = 
         "
-        SELECT $name.points,masterquestions.func_name, masterquestions.inone, masterquestions.outone, masterquestions.intwo, masterquestions.outtwo 
+        SELECT $name.points,masterquestions.func_name, masterquestions.inone, masterquestions.outone, masterquestions.intwo, masterquestions.outtwo , masterquestions.paramtype
         FROM $name 
         NATURAL JOIN masterquestions
         ";

@@ -9,7 +9,7 @@ function get_active_exam()
 
     $exam_name = get_active_exam_name();
 
-    $query = "SELECT masterquestions.intro FROM $exam_name NATURAL JOIN masterquestions";
+    $query = "SELECT masterquestions.intro FROM $exam_name NATURAL JOIN masterquestions ORDER BY examQuestionID";
 
     $questions = array();
 

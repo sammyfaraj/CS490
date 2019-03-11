@@ -11,6 +11,9 @@ include "answers.php";
 include "get_cases.php";
 include "get_temp_grades.php";
 include "end_exam.php";
+include "post_temp_grades.php";
+include "post_final_grades.php";
+include "get_final_grades.php";
 
 # Retrieve raw HTTP request data
 $decoded_data = get_http_request();
@@ -129,8 +132,10 @@ function route($data)
         //Return: None
         //IN PROGRESS
         case "POST_FINAL_GRADES":
+            echo "post final grades";
             $exam_name = get_active_exam_name();
             post_final_grades($data, $exam_name."results");
+            break;
             
         //Student Views Final Grades
         //Arguemnts: Student Id
@@ -138,7 +143,9 @@ function route($data)
         //IN PROGRESSS
         case "GET_FINAL_GRADES":
             $exam_name = get_active_exam_name();
-            get_final_grades($data, $exam_name."results");
+			      $message = get_final_grades($data, $exam_name."results");
+            echo json_encode($message);
+            break;
             
         //DEFAULT
         default:
