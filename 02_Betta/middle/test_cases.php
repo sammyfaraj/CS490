@@ -219,3 +219,24 @@ $completed = array(
         )
     ),
 );
+
+
+$t = array(
+"def maxInt(lst):
+    m = lst[0]
+    for num in lst:
+        if (num > m): m = num
+    return m",
+"def hello(str):
+    return \"Hello {}, how are you?\".format(str)",
+"def get_vowels(str):
+    counter = 0
+    for chr in str:
+        if chr in \"AEIOUaeiou\":
+            counter += 1
+    return counter|~|
+def half(num):
+    return num / 2"
+);
+
+
