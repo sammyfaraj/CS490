@@ -17,6 +17,9 @@ function get_http_request() {
 
 $data = get_http_request();
 
+echo "Data Received from Front-end\n";
+echo var_export($data, true);
+
 if (is_null($data)){
     # Check if request is coming from Front-end and data is successfully retrieved
     
