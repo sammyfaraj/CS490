@@ -42,8 +42,9 @@ input[type=text2] {
 }
 
 .qbutton  {
+  white-space: normal;
 	background-color: #feffe5;
-  width:90%;
+  width: 453px;
 	color: black;
 	padding: 12px 20px;
 	text-align: middle;

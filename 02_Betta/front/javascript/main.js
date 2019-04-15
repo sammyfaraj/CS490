@@ -38,6 +38,11 @@ function addquestion(form) {
             return;
         }
     }
+    
+    var enforcefor = document.getElementById("enforcefor").checked;
+    var enforcewhile = document.getElementById("enforcewhile").checked;
+    var enforceprint = document.getElementById("enforceprint").checked;
+       
     ajax.open("POST", "../php/login.php", true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send(
@@ -46,14 +51,13 @@ function addquestion(form) {
         "&id=null" +
         "&topic=" + form.newtopic.value +
         "&diff=" + form.newdiff.value +
-        "&score=" + form.newscore.value +
         "&func_name=" + form.newfuncname.value +
-        "&paramname=" + form.newpname.value +
-        "&paramtype=" + form.newptype.value +
         "&inone=" + form.newinone.value +
         "&outone=" + form.newoutone.value +
-        "&intwo=" + form.newintwo.value +
-        "&outtwo=" + form.newouttwo.value);
+        "&enforcefor=" +  enforcefor+
+        "&enforcewhile=" + enforcewhile +
+        "&enforceprint=" + enforceprint);
+
 }
 
 //Get All Questions
@@ -96,19 +100,34 @@ function createexam(form) {
     }
     //var qarr =  JSON.stringify(qarray);
     var sarray = []
+    var totalscore = 0;
     var qscores = document.getElementById("buttoninleft").querySelectorAll(".qbuttonscore");
     for (const qscore of qscores) {
+        totalscore += parseInt(qscore.value, 10)
         sarray.push(qscore.value)
     }
-    //var sarr =  JSON.stringify(sarray);
-    var examName = document.getElementById("examName").value;
-    ajax.open("POST", "../php/login.php", true);
-    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    ajax.send("request_id=CREATE_EXAM" + 
-    "&exam_name=" + examName + 
-    "&questions=" + qarray + 
-    "&scores=" + sarray
-    );
+    if (totalscore !== 100){
+        if (confirm("Total score is not equal to 100! \nTotal score is currently " + totalscore)) {
+            var examName = document.getElementById("examName").value;
+            ajax.open("POST", "../php/login.php", true);
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send("request_id=CREATE_EXAM" + 
+            "&exam_name=" + examName + 
+            "&questions=" + qarray + 
+            "&scores=" + sarray
+            );
+          } 
+    }
+    else{
+      var examName = document.getElementById("examName").value;
+      ajax.open("POST", "../php/login.php", true);
+      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      ajax.send("request_id=CREATE_EXAM" + 
+      "&exam_name=" + examName + 
+      "&questions=" + qarray + 
+      "&scores=" + sarray);
+      }
+            
 }
 
 //Apply Filter to Questions
@@ -195,7 +214,7 @@ function getactive() {
         if (ajax.readyState == 4 && ajax.status == 200) {
             var data = JSON.parse(this.responseText);
             for (x of data) {
-              addquestionbox(x[0]);
+              addquestionbox(x[0],x[1]);
             }
             return;
         }
@@ -222,7 +241,9 @@ function submitexam(){
     for (var answer of answers){
       aarray +=  answer.value + "|~|";
     }
-    
+    console.log(aarray);
+    aarray = encodeURIComponent(aarray);
+    console.log(aarray);
     ajax.open("POST", "../php/login.php", true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send("request_id=SUBMIT_EXAM" +
@@ -270,7 +291,6 @@ function gettempgrades(){
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
            var data = JSON.parse(this.responseText);
-
            for (x of data) {
             username = x[0];
             scores = x[1];
@@ -317,10 +337,11 @@ function teacherreview(username,scores,answers,comments){
       usernamebox.value = username;
       
     document.getElementById('buttonin').appendChild(usernamebox);
-    
+    scores = scores.slice(1)
+    comments = comments.slice(3)
     scores = scores.split(",");
     answers = answers.split("|~|");
-    comments = comments.split(",");
+    comments = comments.split("|~|");
     
     for (var i = 0; i < scores.length; i++){
       var scoresbox = document.createElement("input");
@@ -471,16 +492,24 @@ function getfinalgrades(){
 
 //Add Text Boxes for Student Taking Exam
 //Arguments: Text
-function addquestionbox(value){
-    var question = document.createTextNode(value);
+function addquestionbox(intro,score){
+    
+    var question = document.createElement("textarea");
+    question.rows = "5";
+    question.cols = "80";
+    question.id = question+intro;
+    question.value = intro + '\n' + "This question is worth " + score + " points";
+    
     var linebreak1 = document.createElement("br");
     var linebreak2 = document.createElement("br");
     var linebreak3 = document.createElement("br");
+    
     var textarea = document.createElement("textarea");
     textarea.rows = "5";
     textarea.cols = "80";
-    textarea.id = value;
+    textarea.id = intro;
     textarea.className = "answers";
+    textarea.onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}";
     document.getElementById('buttoninright').appendChild(linebreak1);
     document.getElementById('buttoninright').appendChild(question);
     document.getElementById('buttoninright').appendChild(linebreak2);
@@ -541,6 +570,7 @@ function clearquestions(){
 }
 
 
+  
 
 
 

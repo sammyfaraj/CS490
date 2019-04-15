@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Question Creator</title>
+    <title >Question Creator</title>
     <link rel="stylesheet" href="../styles/split.css" />
 	<script async src="../javascript/main.js"></script>
   </head>
@@ -13,19 +13,40 @@
 			<h2>Create Question</h2>   
 			<form class="createquestion-form" id="createquestionform">
 			<input type="text" placeholder="Question" id="newintro">  <br /> 
-			<input type="text2" placeholder="Function Name" id="newfuncname"> <br /> 
-			<input type="text2" placeholder="Param Name" id="newpname"> 
-			<input type="text2" placeholder="Param Type" id="newptype">  <br/>
-			<input type="text2" placeholder="Input One" id="newinone"> 
-			<input type="text2" placeholder="Output One" id="newoutone">  <br/>
-			<input type="text2" placeholder="Input Two" id="newintwo"> 
-			<input type="text2" placeholder="Output Two" id="newouttwo">  <br/>
-			<input type="text2" placeholder="Topic" id="newtopic"> 
-			<input type="text2" placeholder="Difficulty" id="newdiff"> 
-			<input type="text2" placeholder="Score" id="newscore">
+			<input type="text" placeholder="Function Name" id="newfuncname"> <br /> 
+			<input type="text" placeholder="Input" id="newinone">  <br />
+			<input type="text" placeholder="Output" id="newoutone">  <br  />
+      <select name="topics" vale="topics" id="newtopic">
+        <option value="" selected disabled hidden>Topics</option>
+        <option value="For Loops" >For Loops</option>
+        <option value="While Loops">While Loops</option>
+        <option value="Def">Def</option>
+        <option value="String">String</option>
+        <option value="Int">Int</option>
+        <option value="Array">Array</option>
+      </select>
+      <select name="difficulty" id="newdiff">
+        <option value="" selected disabled hidden>Difficulty</option>
+        <option value="Easy" >Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+      </select>  <br/>
+      <h6>
+        <div>
+          <input type="checkbox" name="enforcefor" value="enforcefor" id="enforcefor">
+          <label for="enforcefor">Enforce For Loop</label>
+        </div>
+        <div>
+          <input type="checkbox" name="enforcewhile" value="enforcewhile" id="enforcewhile">
+          <label for="enforcewhile">Enforce While Loop</label>
+        </div>
+        <div>  
+          <input type="checkbox" name="enforceprint" value="enforceprint" id="enforceprint">
+          <label for="enforceprint">Enforce Print</label>
+        </div
+      </h6> <br></br>
 			<input type="button" onclick="addquestion(this.form);" value="Submit Question!">  			
 			</form>
-			<!THIS WILL BE THE SUBMIT QUESTION BUTTON>
 			<input type="button"  onclick="location.href='teacherview.html';" value="Return Home">
 		  </div>
 		</div>
@@ -34,9 +55,24 @@
 		  <div class="centered">
 			<h2>All Questions</h2>
       <form>
-			<input type="text2" placeholder="Keyword" id="qfilterkey">  
-			<input type="text2" placeholder="Topic" id="qfiltertopic"> 
-			<input type="text2" placeholder="Difficulty" id="qfilterdiff"> 
+			<input  placeholder="Keyword" id="qfilterkey">  
+      <select name="topics" id="qfiltertopic">
+        <option value="" selected disabled hidden>Topics</option>
+        <option value=""></option>
+        <option value="For Loops" >For Loops</option>
+        <option value="While Loops">While Loops</option>
+        <option value="Def">Def</option>
+        <option value="String">String</option>
+        <option value="Int">Int</option>
+        <option value="Array">Array</option>
+      </select>
+			<select name="difficulty" id="qfilterdiff">
+        <option value="" selected disabled hidden>Difficulty</option>
+        <option value=""></option>
+        <option value="Easy" >Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+      </select>
 			<!THIS WILL BE THE APPLY FILTER BUTTON>
 			<input type="button" onclick="applyfilter(this.form);" value="Apply Filter"> 
       </form>
