@@ -2,25 +2,23 @@
 <html>
   <head>
     <title>Login</title>
-    <link rel="stylesheet" href="../styles/default.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
     <script async src="../javascript/main.js"></script>
   </head>
   <body>
-    <h1>Welcome To The NJIT Login Page</h1> 
-    <h4 id='date' /> 
-    <h4> 
-      Login Form 
-      <form class="login-form">
-        <input type="text" placeholder="Username" id="username">  <br />
-        <input type="password" placeholder="Password" id="password"> <br /> 
-		<!IMPLEMENT THE LOGIN> 
-        <input type="button" onclick="login(this.form);" value="Login"> 
-        <br> </br>
-      </form>
-    </h4>
+    <div id="headcontainer">
+      <p> Python Examination System </p>
+    </div>
+    <div id="container">
+        <form class="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <div id="lower">
+                <input type="button" onclick="login(this.form);" id="loginbutton" value="Login"> 
+            </div>
+        </form>
+    </div>
   </body>
-  <footer>
-    <p>Credits to: Sammy Faraj, Eddie Tonaco, Junior Figuereo</p>
-    <p>Contact information: <a href="mailto:someone@example.com">sf297@njit.edu</a></p>
-  </footer>
 </html>

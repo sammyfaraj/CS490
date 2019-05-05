@@ -10,11 +10,33 @@
       <div class="split left">
         <div class="centered">
           <h2>Questions</h2>
-          <div id="buttoninleft" > </div>
+          <div id="scorein"></div>
           <input type="text" placeholder="Exam Name" id="examName">  
+          <div id="buttoninleft" > </div>
           <input type="button" onclick="createexam(this.form);" value="Release Exam"> 
           <input type="button"  onclick="location.href='teacherview.html';" value="Return Home"> 	
-
+          <div id="scorein"></div>
+          <script>
+          function scoreupdate(){
+             var totalscore = 0;
+             var qscores = document.getElementById("buttoninleft").querySelectorAll(".qbuttonscore");
+             for (const qscore of qscores) {
+              if (isNaN(parseInt(qscore.value, 10))){
+              continue;
+              }
+               totalscore += parseInt(qscore.value, 10)
+             }
+             document.getElementById("scorein").innerHTML = totalscore;
+             if (totalscore == 100){
+             document.getElementById("scorein").style.color = "green"
+             }
+             else{
+             document.getElementById("scorein").style.color = "white"
+             }
+             window.setInterval(scoreupdate, 1000);
+          }
+          scoreupdate();
+          </script>
         </div>
       </div>
       

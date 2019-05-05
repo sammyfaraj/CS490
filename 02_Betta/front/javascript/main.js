@@ -13,7 +13,7 @@ function login(form) {
                 window.location.replace('studentview.html')
                 localStorage.setItem("loginusername",form.username.value);
             } else {
-                alert("INVALID USERNAME AND PASSWORD");
+                window.location.replace('login.html')
             }
             return;
         }
@@ -106,19 +106,7 @@ function createexam(form) {
         totalscore += parseInt(qscore.value, 10)
         sarray.push(qscore.value)
     }
-    if (totalscore !== 100){
-        if (confirm("Total score is not equal to 100! \nTotal score is currently " + totalscore)) {
-            var examName = document.getElementById("examName").value;
-            ajax.open("POST", "../php/login.php", true);
-            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            ajax.send("request_id=CREATE_EXAM" + 
-            "&exam_name=" + examName + 
-            "&questions=" + qarray + 
-            "&scores=" + sarray
-            );
-          } 
-    }
-    else{
+    
       var examName = document.getElementById("examName").value;
       ajax.open("POST", "../php/login.php", true);
       ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -126,9 +114,10 @@ function createexam(form) {
       "&exam_name=" + examName + 
       "&questions=" + qarray + 
       "&scores=" + sarray);
-      }
             
 }
+
+
 
 //Apply Filter to Questions
 //Arguments: Filters
@@ -165,14 +154,14 @@ function tisavailable(){
         if (ajax.readyState == 4 && ajax.status == 200) {
             var data = JSON.parse(this.responseText);
             status = data.status;
-            if (status == 1) {
-                alert("Cannot Create Exam When One is Active!");
-            } else if (status == 0) {
+             if (status == 0) {
                 window.location.replace('createexam.html');
-            } else {
-                alert("Error");
             }
-            return 1;
+            else{
+            document.getElementById("available").innerHTML = "Exam Is Active";
+            document.getElementById("available").style.color = "red"
+            }
+            return status;
         }
     }
     ajax.open("POST", "../php/login.php", true);
@@ -191,10 +180,10 @@ function sisavailable(){
             status = data.status;
             if (status == 1) {
                 window.location.replace('takeexam.html');
-            } else if (status == 0) {
-                alert("No Exam is Available to Take!");
-            } else {
-                alert("Error");
+            }
+            else{
+            document.getElementById("available").innerHTML = "No Exam Available";
+            document.getElementById("available").style.color = "red"
             }
             return 1;
         }
@@ -231,7 +220,6 @@ function submitexam(){
     var ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200) {
-            alert(this.responseText);
             window.location.replace('studentview.html')
             return;
         }
@@ -241,9 +229,7 @@ function submitexam(){
     for (var answer of answers){
       aarray +=  answer.value + "|~|";
     }
-    console.log(aarray);
     aarray = encodeURIComponent(aarray);
-    console.log(aarray);
     ajax.open("POST", "../php/login.php", true);
     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     ajax.send("request_id=SUBMIT_EXAM" +
@@ -360,7 +346,7 @@ function teacherreview(username,scores,answers,comments){
       answersbox.className = "answers";
     
     var commentsbox = document.createElement("textarea");
-      commentsbox.rows = "5";
+      commentsbox.rows = "15";
       commentsbox.cols = "80";
       commentsbox.placeholder = "comments";
       commentsbox.id = 'commentsbox';
@@ -455,7 +441,7 @@ function getfinalgrades(){
                   answersbox.className = "answers";
                 
                 var commentsbox = document.createElement("textarea");
-                  commentsbox.rows = "5";
+                  commentsbox.rows = "15";
                   commentsbox.cols = "80";
                   commentsbox.placeholder = "comments";
                   commentsbox.id = 'commentsbox';
